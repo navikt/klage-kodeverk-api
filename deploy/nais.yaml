@@ -1,0 +1,52 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: klage-kodeverk-api
+  namespace: klage
+  labels:
+    team: klage
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "100M"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+spec:
+  image: {{image}}
+  azure:
+    application:
+      enabled: true
+      tenant: {{tenant}}
+  port: 7081
+  startup:
+    failureThreshold: 20
+    initialDelay: 30
+    path: /internal/health
+    periodSeconds: 10
+    timeout: 2
+  liveness:
+    path: /internal/health
+    initialDelay: 20
+    timeout: 1
+    periodSeconds: 5
+    failureThreshold: 10
+  readiness:
+    path: /internal/health
+    initialDelay: 20
+    timeout: 1
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 5000Mi
+    requests:
+      cpu: 2000m
+      memory: 5000Mi
+  replicas:
+    min: 2
+    max: 2
+    cpuThresholdPercentage: 80
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  secureLogs:
+    enabled: true
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: {{springProfile}}

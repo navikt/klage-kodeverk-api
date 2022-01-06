@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: klage-kodeverk-api
+  main:
+    banner-mode: OFF
+  sleuth:
+    baggage:
+      remote-fields:
+        - Nav-Callid
+        - Nav-Consumer-Id
+      correlation-fields:
+        - Nav-Callid
+        - Nav-Consumer-Id
+
+server:
+  port: 7081
+  error:
+    whitelabel:
+      enabled: false
+  shutdown: graceful
+
+
