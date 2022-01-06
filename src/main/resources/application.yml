@@ -12,6 +12,24 @@ spring:
         - Nav-Callid
         - Nav-Consumer-Id
 
+management:
+  health:
+    elasticsearch:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints.web:
+    exposure:
+      include: info, health, metrics, prometheus
+    base-path: "/internal"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+
 server:
   port: 7081
   error:
