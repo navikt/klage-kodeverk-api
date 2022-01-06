@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 class KodeverkController {
 
     @Unprotected
-    @GetMapping("/api/kodeverk", produces = ["application/json"])
+    @GetMapping("/kodeverk", produces = ["application/json"])
     fun getKodeverk(): KodeverkResponse {
         return getKodeverkResponse()
     }
