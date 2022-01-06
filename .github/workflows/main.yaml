@@ -70,7 +70,7 @@ jobs:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
   deploytoprod:
     name: Deploy to prod
-    needs: acceptance-tests
+    needs: deploytodev
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
