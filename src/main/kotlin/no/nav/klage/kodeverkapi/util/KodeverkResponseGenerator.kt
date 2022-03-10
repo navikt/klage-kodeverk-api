@@ -25,16 +25,14 @@ private fun getVedtaksenheter(): List<KodeverkDto> {
 }
 
 private fun Collection<Enhet>.toEnhetKodeverkDto(): List<KodeverkDto> {
-    //move towards using navn ("4250") as id.
-    return map { KodeverkDto(id = it.navn, navn = it.navn, beskrivelse = it.beskrivelse) }
+    return map { KodeverkDto(id = it.navn, navn = it.beskrivelse, beskrivelse = it.beskrivelse) }
 }
 
 private fun getKlageenheter(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
         KlageenhetKode(
-            //move towards using navn ("4250") as id.
             id = klageenhetTilYtelse.key.navn,
-            navn = klageenhetTilYtelse.key.navn,
+            navn = klageenhetTilYtelse.key.beskrivelse,
             beskrivelse = klageenhetTilYtelse.key.beskrivelse,
             ytelser = klageenhetTilYtelse.value.toKodeverkDto()
         )
@@ -75,12 +73,11 @@ private fun getYtelser(): List<YtelseKode> =
         )
     }
 
-private fun Kode.toKodeverkDto() = KodeverkDto(id, navn, beskrivelse)
+private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse = beskrivelse)
 
-//move towards using navn ("4250") as id.
-private fun Kode.toEnhetKodeverkDto() = KodeverkDto(navn, navn, beskrivelse)
+private fun Kode.toEnhetKodeverkDto() = KodeverkDto(id = navn, navn = beskrivelse, beskrivelse = beskrivelse)
 
-private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id, navn)
+private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
 
 private fun List<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
 
