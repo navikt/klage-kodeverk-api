@@ -71,7 +71,7 @@ private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse
 
 private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
 
-private fun Kode.toEnhetKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = beskrivelse)
+private fun Kode.toEnhetKodeverkSimpleDto() = KodeverkSimpleDto(id = navn, navn = beskrivelse)
 
 private fun Collection<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
 
