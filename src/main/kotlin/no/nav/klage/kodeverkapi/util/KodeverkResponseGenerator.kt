@@ -11,17 +11,17 @@ fun getKodeverkResponse(): KodeverkResponse {
         tema = Tema.values().asList().toKodeverkDto(),
         hjemler = getHjemlerAsKodeverkDtos(),
         utfall = Utfall.values().asList().toKodeverkSimpleDto(),
-        enheter = Enhet.values().asList().toKodeverkSimpleDto(),
+        enheter = Enhet.values().asList().toEnhetKodeverkSimpleDto(),
         vedtaksenheter = getVedtaksenheter(),
         klageenheter = getKlageenheter(),
-        styringsenheter = styringsenheter.toList().toKodeverkSimpleDto(),
+        styringsenheter = styringsenheter.toList().toEnhetKodeverkSimpleDto(),
         sakstyper = Type.values().asList().toKodeverkSimpleDto(),
         sources = Source.values().asList().toKodeverkSimpleDto(),
     )
 }
 
 private fun getVedtaksenheter(): List<KodeverkSimpleDto> {
-    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toKodeverkSimpleDto()
+    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
 }
 
 private fun getKlageenheter(): List<KlageenhetKode> =
@@ -62,8 +62,8 @@ private fun getYtelser(): List<YtelseKode> =
             id = ytelse.id,
             navn = ytelse.navn,
             lovKildeToRegistreringshjemler = ytelseToLovKildeToRegistreringshjemmel[ytelse] ?: emptyList(),
-            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toKodeverkSimpleDto() } ?: emptyList(),
-            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toKodeverkSimpleDto() } ?: emptyList(),
+            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
         )
     }
 
@@ -71,6 +71,10 @@ private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse
 
 private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
 
+private fun Kode.toEnhetKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = beskrivelse)
+
 private fun Collection<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
 
 private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDto() }
+
+private fun Collection<Kode>.toEnhetKodeverkSimpleDto() = map { it.toEnhetKodeverkSimpleDto() }
