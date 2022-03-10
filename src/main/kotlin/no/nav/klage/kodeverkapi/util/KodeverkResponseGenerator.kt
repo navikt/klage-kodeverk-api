@@ -11,21 +11,17 @@ fun getKodeverkResponse(): KodeverkResponse {
         tema = Tema.values().asList().toKodeverkDto(),
         hjemler = getHjemlerAsKodeverkDtos(),
         utfall = Utfall.values().asList().toKodeverkSimpleDto(),
-        enheter = Enhet.values().asList().toEnhetKodeverkDto(),
+        enheter = Enhet.values().asList().toKodeverkSimpleDto(),
         vedtaksenheter = getVedtaksenheter(),
         klageenheter = getKlageenheter(),
-        styringsenheter = styringsenheter.toList().toKodeverkDto(),
+        styringsenheter = styringsenheter.toList().toKodeverkSimpleDto(),
         sakstyper = Type.values().asList().toKodeverkSimpleDto(),
         sources = Source.values().asList().toKodeverkSimpleDto(),
     )
 }
 
-private fun getVedtaksenheter(): List<KodeverkDto> {
-    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkDto()
-}
-
-private fun Collection<Enhet>.toEnhetKodeverkDto(): List<KodeverkDto> {
-    return map { KodeverkDto(id = it.navn, navn = it.beskrivelse, beskrivelse = it.beskrivelse) }
+private fun getVedtaksenheter(): List<KodeverkSimpleDto> {
+    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toKodeverkSimpleDto()
 }
 
 private fun getKlageenheter(): List<KlageenhetKode> =
@@ -33,8 +29,7 @@ private fun getKlageenheter(): List<KlageenhetKode> =
         KlageenhetKode(
             id = klageenhetTilYtelse.key.navn,
             navn = klageenhetTilYtelse.key.beskrivelse,
-            beskrivelse = klageenhetTilYtelse.key.beskrivelse,
-            ytelser = klageenhetTilYtelse.value.toKodeverkDto()
+            ytelser = klageenhetTilYtelse.value.toKodeverkSimpleDto()
         )
     }
 
@@ -66,21 +61,16 @@ private fun getYtelser(): List<YtelseKode> =
         YtelseKode(
             id = ytelse.id,
             navn = ytelse.navn,
-            beskrivelse = ytelse.beskrivelse,
             lovKildeToRegistreringshjemler = ytelseToLovKildeToRegistreringshjemmel[ytelse] ?: emptyList(),
-            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkDto() } ?: emptyList(),
-            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkDto() } ?: emptyList(),
+            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toKodeverkSimpleDto() } ?: emptyList(),
+            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toKodeverkSimpleDto() } ?: emptyList(),
         )
     }
 
 private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse = beskrivelse)
 
-private fun Kode.toEnhetKodeverkDto() = KodeverkDto(id = navn, navn = beskrivelse, beskrivelse = beskrivelse)
-
 private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
 
-private fun List<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
+private fun Collection<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
 
-private fun List<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDto() }
-
-private fun Set<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }.toSet()
+private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDto() }
