@@ -6,7 +6,9 @@ data class KodeverkResponse(
     val hjemler: List<KodeverkDto>,
     val utfall: List<KodeverkSimpleDto>,
     val enheter: List<KodeverkDto>,
+    val vedtaksenheter: List<KodeverkDto>,
     val klageenheter: List<KlageenhetKode>,
+    val styringsenheter: List<KodeverkDto>,
     val sakstyper: List<KodeverkSimpleDto>,
     val sources: List<KodeverkSimpleDto>,
 )

@@ -11,17 +11,29 @@ fun getKodeverkResponse(): KodeverkResponse {
         tema = Tema.values().asList().toKodeverkDto(),
         hjemler = getHjemlerAsKodeverkDtos(),
         utfall = Utfall.values().asList().toKodeverkSimpleDto(),
-        enheter = Enhet.values().asList().toKodeverkDto(),
+        enheter = Enhet.values().asList().toEnhetKodeverkDto(),
+        vedtaksenheter = getVedtaksenheter(),
         klageenheter = getKlageenheter(),
+        styringsenheter = styringsenheter.toList().toKodeverkDto(),
         sakstyper = Type.values().asList().toKodeverkSimpleDto(),
         sources = Source.values().asList().toKodeverkSimpleDto(),
     )
 }
 
+private fun getVedtaksenheter(): List<KodeverkDto> {
+    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkDto()
+}
+
+private fun Collection<Enhet>.toEnhetKodeverkDto(): List<KodeverkDto> {
+    //move towards using navn ("4250") as id.
+    return map { KodeverkDto(id = it.navn, navn = it.navn, beskrivelse = it.beskrivelse) }
+}
+
 private fun getKlageenheter(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
         KlageenhetKode(
-            id = klageenhetTilYtelse.key.id,
+            //move towards using navn ("4250") as id.
+            id = klageenhetTilYtelse.key.navn,
             navn = klageenhetTilYtelse.key.navn,
             beskrivelse = klageenhetTilYtelse.key.beskrivelse,
             ytelser = klageenhetTilYtelse.value.toKodeverkDto()
@@ -58,12 +70,15 @@ private fun getYtelser(): List<YtelseKode> =
             navn = ytelse.navn,
             beskrivelse = ytelse.beskrivelse,
             lovKildeToRegistreringshjemler = ytelseToLovKildeToRegistreringshjemmel[ytelse] ?: emptyList(),
-            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toKodeverkDto() } ?: emptyList(),
-            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toKodeverkDto() } ?: emptyList(),
+            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkDto() } ?: emptyList(),
+            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkDto() } ?: emptyList(),
         )
     }
 
 private fun Kode.toKodeverkDto() = KodeverkDto(id, navn, beskrivelse)
+
+//move towards using navn ("4250") as id.
+private fun Kode.toEnhetKodeverkDto() = KodeverkDto(navn, navn, beskrivelse)
 
 private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id, navn)
 
