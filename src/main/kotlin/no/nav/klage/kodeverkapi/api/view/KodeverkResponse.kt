@@ -5,8 +5,10 @@ data class KodeverkResponse(
     val tema: List<KodeverkDto>,
     val hjemler: List<KodeverkDto>,
     val utfall: List<KodeverkSimpleDto>,
-    val enheter: List<KodeverkDto>,
+    val enheter: List<KodeverkSimpleDto>,
+    val vedtaksenheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KlageenhetKode>,
+    val styringsenheter: List<KodeverkSimpleDto>,
     val sakstyper: List<KodeverkSimpleDto>,
     val sources: List<KodeverkSimpleDto>,
 )
@@ -20,17 +22,15 @@ data class LovKildeToRegistreringshjemler(val lovkilde: KodeverkDto, val registr
 data class KlageenhetKode(
     val id: String,
     val navn: String,
-    val beskrivelse: String,
-    val ytelser: Set<KodeverkDto>,
+    val ytelser: List<KodeverkSimpleDto>,
 )
 
 data class YtelseKode(
     val id: String,
     val navn: String,
-    val beskrivelse: String,
     val lovKildeToRegistreringshjemler: List<LovKildeToRegistreringshjemler>,
-    val enheter: List<KodeverkDto>,
-    val klageenheter: List<KodeverkDto>,
+    val enheter: List<KodeverkSimpleDto>,
+    val klageenheter: List<KodeverkSimpleDto>,
 )
 
 
