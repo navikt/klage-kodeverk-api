@@ -4,7 +4,7 @@ val springSleuthVersion = "3.0.4"
 val tokenValidationVersion = "1.3.9"
 
 plugins {
-	id("org.springframework.boot") version "2.5.8"
+	id("org.springframework.boot") version "2.5.12"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.6.0"
 	kotlin("plugin.spring") version "1.6.0"
@@ -28,7 +28,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("no.nav.security:token-validation-spring:$tokenValidationVersion")
 	implementation("no.nav.security:token-client-spring:$tokenValidationVersion")
-	implementation("com.github.navikt:kabal-kodeverk:2022.03.31-13.22.d94d4a0d7871")
+	implementation("com.github.navikt:kabal-kodeverk:2022.04.04-08.49.7c5e187b3fb5")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
