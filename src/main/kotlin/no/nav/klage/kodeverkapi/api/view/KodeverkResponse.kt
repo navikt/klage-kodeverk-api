@@ -31,6 +31,7 @@ data class YtelseKode(
     val lovKildeToRegistreringshjemler: List<LovKildeToRegistreringshjemler>,
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
+    val hjemler: List<KodeverkDto>,
 )
 
 

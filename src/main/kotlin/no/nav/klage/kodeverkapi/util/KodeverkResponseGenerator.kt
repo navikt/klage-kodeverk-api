@@ -2,6 +2,7 @@ package no.nav.klage.kodeverkapi.util
 
 import no.nav.klage.kodeverk.*
 import no.nav.klage.kodeverk.hjemmel.Hjemmel
+import no.nav.klage.kodeverk.hjemmel.ytelseTilHjemler
 import no.nav.klage.kodeverk.hjemmel.ytelseTilRegistreringshjemler
 import no.nav.klage.kodeverkapi.api.view.*
 
@@ -35,13 +36,16 @@ private fun getKlageenheter(): List<KlageenhetKode> =
 
 private fun getHjemlerAsKodeverkDtos(): List<KodeverkDto> {
     return Hjemmel.values().map {
-        KodeverkDto(
-            id = it.id,
-            navn = it.lovKilde.beskrivelse + " - " + it.spesifikasjon,
-            beskrivelse = it.lovKilde.navn + " - " + it.spesifikasjon,
-        )
+        it.toKodeverkDto()
     }
 }
+
+private fun Hjemmel.toKodeverkDto() =
+    KodeverkDto(
+        id = id,
+        navn = lovKilde.beskrivelse + " - " + spesifikasjon,
+        beskrivelse = lovKilde.navn + " - " + spesifikasjon,
+    )
 
 private val ytelseToLovKildeToRegistreringshjemmel: Map<Ytelse, List<LovKildeToRegistreringshjemler>> =
     ytelseTilRegistreringshjemler.mapValues { (_, hjemler) ->
@@ -64,6 +68,7 @@ private fun getYtelser(): List<YtelseKode> =
             lovKildeToRegistreringshjemler = ytelseToLovKildeToRegistreringshjemmel[ytelse] ?: emptyList(),
             enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
             klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            hjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
         )
     }
 
