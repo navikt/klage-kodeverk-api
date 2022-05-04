@@ -18,6 +18,7 @@ fun getKodeverkResponse(): KodeverkResponse {
         styringsenheter = styringsenheter.toList().toEnhetKodeverkSimpleDto(),
         sakstyper = Type.values().asList().toKodeverkSimpleDto(),
         sources = Source.values().asList().toKodeverkSimpleDto(),
+        brevmottakertyper = Brevmottakertype.values().asList().toKodeverkSimpleDto()
     )
 }
 

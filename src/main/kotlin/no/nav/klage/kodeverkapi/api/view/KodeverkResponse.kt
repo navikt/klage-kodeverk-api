@@ -11,6 +11,7 @@ data class KodeverkResponse(
     val styringsenheter: List<KodeverkSimpleDto>,
     val sakstyper: List<KodeverkSimpleDto>,
     val sources: List<KodeverkSimpleDto>,
+    val brevmottakertyper: List<KodeverkSimpleDto>,
 )
 
 data class KodeverkSimpleDto(val id: String, val navn: String)
