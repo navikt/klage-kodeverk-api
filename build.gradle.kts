@@ -28,7 +28,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("no.nav.security:token-validation-spring:$tokenValidationVersion")
 	implementation("no.nav.security:token-client-spring:$tokenValidationVersion")
-	implementation("com.github.navikt:kabal-kodeverk:2022.05.13-08.18.71a36840cfff")
+	implementation("com.github.navikt:kabal-kodeverk:2022.06.02-08.34.27cd881bd751")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
