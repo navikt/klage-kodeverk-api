@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springSleuthVersion = "3.0.4"
-val tokenValidationVersion = "1.3.9"
+val tokenValidationVersion = "2.1.2"
 
 plugins {
 	id("org.springframework.boot") version "2.5.12"
