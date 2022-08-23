@@ -1,3 +1,2 @@
 springProfile: dev-gcp
 tenant: trygdeetaten.no
-ingress: https://klage-kodeverk-api.dev.nav.no
