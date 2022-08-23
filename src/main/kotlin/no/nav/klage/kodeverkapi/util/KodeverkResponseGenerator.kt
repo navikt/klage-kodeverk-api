@@ -8,13 +8,13 @@ import no.nav.klage.kodeverkapi.api.view.*
 
 fun getKodeverkResponse(): KodeverkResponse {
     return KodeverkResponse(
-        ytelser = getYtelseList(),
+        ytelser = getYtelseMap(),
         tema = getTemaList(),
         hjemler = getHjemlerAsKodeverkDtos(),
         utfall = getUtfallList(),
         enheter = getEnhetList(),
         vedtaksenheter = getVedtaksenhetList(),
-        klageenheter = getKlageenhetList(),
+        klageenheter = getKlageenhetToYtelserList(),
         styringsenheter = getStyringsenhetList(),
         sakstyper = getTypeList(),
         sources = getSourceList(),
@@ -55,7 +55,11 @@ fun getVedtaksenhetList(): List<KodeverkSimpleDto> {
     return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
 }
 
-fun getKlageenhetList(): List<KlageenhetKode> =
+fun getKlageenhetList(): List<KodeverkSimpleDto> {
+    return Enhet.values().filter { it in klageenheter }.toEnhetKodeverkSimpleDto()
+}
+
+fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
         KlageenhetKode(
             id = klageenhetTilYtelse.key.navn,
@@ -90,7 +94,7 @@ private val ytelseToLovKildeToRegistreringshjemmel: Map<Ytelse, List<LovKildeToR
         }
     }
 
-fun getYtelseList(): List<YtelseKode> =
+fun getYtelseMap(): List<YtelseKode> =
     Ytelse.values().map { ytelse ->
         YtelseKode(
             id = ytelse.id,
@@ -101,6 +105,10 @@ fun getYtelseList(): List<YtelseKode> =
             innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
         )
     }
+
+fun getYtelseList(): List<KodeverkSimpleDto> {
+    return Ytelse.values().asList().toKodeverkSimpleDto()
+}
 
 private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse = beskrivelse)
 

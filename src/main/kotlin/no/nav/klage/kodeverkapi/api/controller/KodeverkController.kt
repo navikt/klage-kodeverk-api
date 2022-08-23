@@ -19,7 +19,7 @@ class KodeverkController {
 
     @Unprotected
     @GetMapping("/ytelser", produces = ["application/json"])
-    fun getYtelser(): List<YtelseKode> {
+    fun getYtelser(): List<KodeverkSimpleDto> {
         return getYtelseList()
     }
 
@@ -55,7 +55,7 @@ class KodeverkController {
 
     @Unprotected
     @GetMapping("/klageenheter", produces = ["application/json"])
-    fun getKlageenheter(): List<KlageenhetKode> {
+    fun getKlageenheter(): List<KodeverkSimpleDto> {
         return getKlageenhetList()
     }
 
