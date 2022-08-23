@@ -48,8 +48,8 @@ spec:
   secureLogs:
     enabled: true
   {{#if ingress}}
-    ingresses:
-      - {{ingress}}
+  ingresses:
+    - {{ingress}}
   {{/if}}
   accessPolicy:
     inbound:
