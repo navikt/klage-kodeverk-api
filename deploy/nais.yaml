@@ -47,6 +47,8 @@ spec:
     path: /internal/prometheus
   secureLogs:
     enabled: true
+  ingresses:
+    - {{ingress}}
   accessPolicy:
     inbound:
       rules:
