@@ -8,25 +8,39 @@ import no.nav.klage.kodeverkapi.api.view.*
 
 fun getKodeverkResponse(): KodeverkResponse {
     return KodeverkResponse(
-        ytelser = getYtelser(),
-        tema = Tema.values().asList().toKodeverkDto(),
+        ytelser = getYtelseMap(),
+        tema = getTemaList(),
         hjemler = getHjemlerAsKodeverkDtos(),
-        utfall = Utfall.values().asList().toKodeverkSimpleDto(),
-        enheter = Enhet.values().asList().toEnhetKodeverkSimpleDto(),
-        vedtaksenheter = getVedtaksenheter(),
-        klageenheter = getKlageenheter(),
-        styringsenheter = styringsenheter.toList().toEnhetKodeverkSimpleDto(),
-        sakstyper = Type.values().asList().toKodeverkSimpleDto(),
-        sources = Source.values().asList().toKodeverkSimpleDto(),
-        brevmottakertyper = Brevmottakertype.values().asList().toKodeverkSimpleDto()
+        utfall = getUtfallList(),
+        enheter = getEnhetList(),
+        vedtaksenheter = getVedtaksenhetList(),
+        klageenheter = getKlageenhetToYtelserList(),
+        styringsenheter = getStyringsenhetList(),
+        sakstyper = getTypeList(),
+        sources = getSourceList(),
+        brevmottakertyper = getBrevmottakertypeList(),
     )
 }
 
-private fun getVedtaksenheter(): List<KodeverkSimpleDto> {
-    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
-}
+fun getTemaList() = Tema.values().asList().toKodeverkDto()
 
-private fun getKlageenheter(): List<KlageenhetKode> =
+fun getUtfallList() = Utfall.values().asList().toKodeverkSimpleDto()
+
+fun getEnhetList() = Enhet.values().asList().toEnhetKodeverkSimpleDto()
+
+fun getStyringsenhetList() = styringsenheter.toList().toEnhetKodeverkSimpleDto()
+
+fun getTypeList() = Type.values().asList().toKodeverkSimpleDto()
+
+fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
+
+fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
+
+fun getVedtaksenhetList() = Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
+
+fun getKlageenhetList() = Enhet.values().filter { it in klageenheter }.toEnhetKodeverkSimpleDto()
+
+fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
         KlageenhetKode(
             id = klageenhetTilYtelse.key.navn,
@@ -35,11 +49,7 @@ private fun getKlageenheter(): List<KlageenhetKode> =
         )
     }
 
-private fun getHjemlerAsKodeverkDtos(): List<KodeverkDto> {
-    return Hjemmel.values().map {
-        it.toKodeverkDto()
-    }
-}
+fun getHjemlerAsKodeverkDtos() = Hjemmel.values().map { it.toKodeverkDto() }
 
 private fun Hjemmel.toKodeverkDto() =
     KodeverkDto(
@@ -61,7 +71,7 @@ private val ytelseToLovKildeToRegistreringshjemmel: Map<Ytelse, List<LovKildeToR
         }
     }
 
-private fun getYtelser(): List<YtelseKode> =
+fun getYtelseMap(): List<YtelseKode> =
     Ytelse.values().map { ytelse ->
         YtelseKode(
             id = ytelse.id,
@@ -72,6 +82,10 @@ private fun getYtelser(): List<YtelseKode> =
             innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
         )
     }
+
+fun getYtelseList(): List<KodeverkSimpleDto> {
+    return Ytelse.values().asList().toKodeverkSimpleDto()
+}
 
 private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse = beskrivelse)
 
