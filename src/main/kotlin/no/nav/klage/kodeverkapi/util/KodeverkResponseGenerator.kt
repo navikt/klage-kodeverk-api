@@ -22,42 +22,23 @@ fun getKodeverkResponse(): KodeverkResponse {
     )
 }
 
-fun getTemaList(): List<KodeverkDto> {
-    return Tema.values().asList().toKodeverkDto()
-}
+fun getTemaList() = Tema.values().asList().toKodeverkDto()
 
-fun getUtfallList(): List<KodeverkSimpleDto> {
-    return Utfall.values().asList().toKodeverkSimpleDto()
-}
+fun getUtfallList() = Utfall.values().asList().toKodeverkSimpleDto()
 
-fun getEnhetList(): List<KodeverkSimpleDto> {
-    return Enhet.values().asList().toEnhetKodeverkSimpleDto()
-}
+fun getEnhetList() = Enhet.values().asList().toEnhetKodeverkSimpleDto()
 
-fun getStyringsenhetList(): List<KodeverkSimpleDto> {
-    return styringsenheter.toList().toEnhetKodeverkSimpleDto()
-}
+fun getStyringsenhetList() = styringsenheter.toList().toEnhetKodeverkSimpleDto()
 
-fun getTypeList(): List<KodeverkSimpleDto> {
-    return Type.values().asList().toKodeverkSimpleDto()
-}
+fun getTypeList() = Type.values().asList().toKodeverkSimpleDto()
 
-fun getSourceList(): List<KodeverkSimpleDto> {
-    return Source.values().asList().toKodeverkSimpleDto()
-}
+fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
 
-fun getBrevmottakertypeList(): List<KodeverkSimpleDto> {
-    return Brevmottakertype.values().asList().toKodeverkSimpleDto()
-}
+fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
 
+fun getVedtaksenhetList() = Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
 
-fun getVedtaksenhetList(): List<KodeverkSimpleDto> {
-    return Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
-}
-
-fun getKlageenhetList(): List<KodeverkSimpleDto> {
-    return Enhet.values().filter { it in klageenheter }.toEnhetKodeverkSimpleDto()
-}
+fun getKlageenhetList() = Enhet.values().filter { it in klageenheter }.toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
@@ -68,11 +49,7 @@ fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
         )
     }
 
-fun getHjemlerAsKodeverkDtos(): List<KodeverkDto> {
-    return Hjemmel.values().map {
-        it.toKodeverkDto()
-    }
-}
+fun getHjemlerAsKodeverkDtos() = Hjemmel.values().map { it.toKodeverkDto() }
 
 private fun Hjemmel.toKodeverkDto() =
     KodeverkDto(

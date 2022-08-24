@@ -17,67 +17,56 @@ class KodeverkController {
         return getKodeverkResponse()
     }
 
-    @Unprotected
     @GetMapping("/ytelser", produces = ["application/json"])
     fun getYtelser(): List<KodeverkSimpleDto> {
         return getYtelseList()
     }
 
-    @Unprotected
     @GetMapping("/tema", produces = ["application/json"])
     fun getTema(): List<KodeverkDto> {
         return getTemaList()
     }
 
-    @Unprotected
     @GetMapping("/hjemler", produces = ["application/json"])
     fun getHjemler(): List<KodeverkDto> {
         return getHjemlerAsKodeverkDtos()
     }
 
-    @Unprotected
     @GetMapping("/utfall", produces = ["application/json"])
     fun getUtfall(): List<KodeverkSimpleDto> {
         return getUtfallList()
     }
 
-    @Unprotected
     @GetMapping("/enheter", produces = ["application/json"])
     fun getEnheter(): List<KodeverkSimpleDto> {
         return getEnhetList()
     }
 
-    @Unprotected
     @GetMapping("/vedtaksenheter", produces = ["application/json"])
     fun getVedtaksenheter(): List<KodeverkSimpleDto> {
         return getVedtaksenhetList()
     }
 
-    @Unprotected
     @GetMapping("/klageenheter", produces = ["application/json"])
     fun getKlageenheter(): List<KodeverkSimpleDto> {
         return getKlageenhetList()
     }
 
-    @Unprotected
     @GetMapping("/styringsenheter", produces = ["application/json"])
     fun getStyringsenheter(): List<KodeverkSimpleDto> {
         return getStyringsenhetList()
     }
 
-    @Unprotected
     @GetMapping("/sakstyper", produces = ["application/json"])
     fun getSakstyper(): List<KodeverkSimpleDto> {
         return getTypeList()
     }
 
-    @Unprotected
     @GetMapping("/sources", produces = ["application/json"])
     fun getSources(): List<KodeverkSimpleDto> {
         return getSourceList()
     }
 
-    @Unprotected
     @GetMapping("/brevmottakertyper", produces = ["application/json"])
     fun getBrevmottakertyper(): List<KodeverkSimpleDto> {
         return getBrevmottakertypeList()
