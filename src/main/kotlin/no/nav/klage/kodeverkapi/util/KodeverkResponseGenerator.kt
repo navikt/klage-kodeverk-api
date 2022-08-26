@@ -38,7 +38,7 @@ fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSim
 
 fun getVedtaksenhetList() = Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
 
-fun getKlageenhetList() = Enhet.values().filter { it in klageenheter }.toEnhetKodeverkSimpleDto()
+fun getKlageenhetList() = klageenheter.toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
