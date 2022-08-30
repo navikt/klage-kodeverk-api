@@ -54,8 +54,7 @@ class KodeverkController {
 
     @GetMapping("/klageenheterforankeinnsending", produces = ["application/json"])
     fun getKlageenheterForAnkeinnsending(): List<KodeverkSimpleDto> {
-        //TODO add missing enheter
-        return getKlageenhetList()
+        return getKlageenheterForAnkeinnsendingList()
     }
 
     @GetMapping("/styringsenheter", produces = ["application/json"])

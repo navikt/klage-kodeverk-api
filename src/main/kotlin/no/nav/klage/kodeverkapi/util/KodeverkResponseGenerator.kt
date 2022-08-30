@@ -36,9 +36,11 @@ fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
 
 fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
 
-fun getVedtaksenhetList() = Enhet.values().filter { it !in klageenheter && it !in styringsenheter }.toEnhetKodeverkSimpleDto()
+fun getVedtaksenhetList() = Enhet.values().filter { it !in klageenheter && it !in styringsenheter && it !in klageenheterForAnkeinnsending }.toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetList() = klageenheter.toEnhetKodeverkSimpleDto()
+
+fun getKlageenheterForAnkeinnsendingList() = klageenheterForAnkeinnsending.toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
     klageenhetTilYtelser.map { klageenhetTilYtelse ->
