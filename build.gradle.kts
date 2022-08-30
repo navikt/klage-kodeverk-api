@@ -30,7 +30,7 @@ dependencies {
     implementation("no.nav.security:token-validation-spring:$tokenValidationVersion")
     implementation("no.nav.security:token-client-spring:$tokenValidationVersion")
     implementation("io.springfox:springfox-boot-starter:$springFoxVersion")
-    implementation("com.github.navikt:kabal-kodeverk:2022.08.30-09.55.bfaa809401c9")
+    implementation("com.github.navikt:kabal-kodeverk:2022.08.30-10.03.889ebc50c492")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
