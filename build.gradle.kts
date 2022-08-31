@@ -1,14 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springSleuthVersion = "3.0.4"
-val springFoxVersion = "3.0.0"
+val springSleuthVersion = "3.1.3"
+val springDocVersion = "1.6.11"
 
 plugins {
-    id("org.springframework.boot") version "2.5.12"
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.spring") version "1.7.10"
+    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+    id("org.springframework.boot") version "2.7.3"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.7.10"
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -24,7 +25,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth:$springSleuthVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("io.springfox:springfox-boot-starter:$springFoxVersion")
+    implementation("org.springdoc:springdoc-openapi-ui:$springDocVersion")
     implementation("com.github.navikt:kabal-kodeverk:2022.08.30-15.37.a3616d20dbd6")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
