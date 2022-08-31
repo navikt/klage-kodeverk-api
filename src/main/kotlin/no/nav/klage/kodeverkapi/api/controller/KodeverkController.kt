@@ -2,12 +2,10 @@ package no.nav.klage.kodeverkapi.api.controller
 
 import no.nav.klage.kodeverkapi.api.view.*
 import no.nav.klage.kodeverkapi.util.*
-import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Unprotected
 @RestController
 @RequestMapping("/kodeverk")
 class KodeverkController {
