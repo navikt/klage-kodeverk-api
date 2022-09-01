@@ -47,11 +47,16 @@ spec:
     path: /internal/prometheus
   secureLogs:
     enabled: true
+  {{#if ingress}}
+  ingresses:
+    - {{ingress}}
+  {{/if}}
   accessPolicy:
     inbound:
       rules:
         - application: kaka-frontend
         - application: kabal-frontend
+        - application: klage-dittnav
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: {{springProfile}}
