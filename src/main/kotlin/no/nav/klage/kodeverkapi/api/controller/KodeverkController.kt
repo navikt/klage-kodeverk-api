@@ -65,6 +65,11 @@ class KodeverkController {
         return getTypeList()
     }
 
+    @GetMapping("/sakstypertoutfall", produces = ["application/json"])
+    fun getSakstyperToUtfall(): List<TypeToUtfallKode> {
+        return getTypeMap()
+    }
+
     @GetMapping("/sources", produces = ["application/json"])
     fun getSources(): List<KodeverkSimpleDto> {
         return getSourceList()
