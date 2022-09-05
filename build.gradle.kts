@@ -26,7 +26,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springdoc:springdoc-openapi-ui:$springDocVersion")
-    implementation("com.github.navikt:kabal-kodeverk:type-til-utfall-SNAPSHOT")
+    implementation("com.github.navikt:kabal-kodeverk:2022.09.05-15.31.efa194ed62e9")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
