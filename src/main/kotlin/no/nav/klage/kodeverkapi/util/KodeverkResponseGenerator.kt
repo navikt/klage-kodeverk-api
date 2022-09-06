@@ -17,6 +17,7 @@ fun getKodeverkResponse(): KodeverkResponse {
         klageenheter = getKlageenhetToYtelserList(),
         styringsenheter = getStyringsenhetList(),
         sakstyper = getTypeList(),
+        sakstyperToUtfall = getTypeMap(),
         sources = getSourceList(),
         brevmottakertyper = getBrevmottakertypeList(),
     )
@@ -36,7 +37,9 @@ fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
 
 fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
 
-fun getVedtaksenhetList() = Enhet.values().filter { it !in klageenheter && it !in styringsenheter && it !in klageenheterForAnkeinnsending }.toEnhetKodeverkSimpleDto()
+fun getVedtaksenhetList() =
+    Enhet.values().filter { it !in klageenheter && it !in styringsenheter && it !in klageenheterForAnkeinnsending }
+        .toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetList() = klageenheter.toEnhetKodeverkSimpleDto()
 
@@ -71,6 +74,15 @@ private val ytelseToLovKildeToRegistreringshjemmel: Map<Ytelse, List<LovKildeToR
                 hjemmel.value
             )
         }
+    }
+
+fun getTypeMap(): List<TypeToUtfallKode> =
+    Type.values().map { type ->
+        TypeToUtfallKode(
+            id = type.id,
+            navn = type.navn,
+            utfall = typeTilUtfall[type]?.map { it.toKodeverkSimpleDto() } ?: emptyList()
+        )
     }
 
 fun getYtelseMap(): List<YtelseKode> =

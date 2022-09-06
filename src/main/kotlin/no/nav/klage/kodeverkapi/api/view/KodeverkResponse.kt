@@ -10,6 +10,7 @@ data class KodeverkResponse(
     val klageenheter: List<KlageenhetKode>,
     val styringsenheter: List<KodeverkSimpleDto>,
     val sakstyper: List<KodeverkSimpleDto>,
+    val sakstyperToUtfall: List<TypeToUtfallKode>,
     val sources: List<KodeverkSimpleDto>,
     val brevmottakertyper: List<KodeverkSimpleDto>,
 )
@@ -33,6 +34,12 @@ data class YtelseKode(
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
     val innsendingshjemler: List<KodeverkDto>,
+)
+
+data class TypeToUtfallKode(
+    val id: String,
+    val navn: String,
+    val utfall: List<KodeverkSimpleDto>,
 )
 
 
