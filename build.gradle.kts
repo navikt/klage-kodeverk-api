@@ -26,7 +26,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springdoc:springdoc-openapi-ui:$springDocVersion")
-    implementation("com.github.navikt:kabal-kodeverk:bd75e2846e")
+    implementation("com.github.navikt:kabal-kodeverk:abf05e772a")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
