@@ -20,6 +20,11 @@ class KodeverkController {
         return getYtelseList()
     }
 
+    @GetMapping("/ytelsemap", produces = ["application/json"])
+    fun getYtelserMap(): List<YtelseKode> {
+        return getYtelseMap()
+    }
+
     @GetMapping("/tema", produces = ["application/json"])
     fun getTema(): List<KodeverkDto> {
         return getTemaList()

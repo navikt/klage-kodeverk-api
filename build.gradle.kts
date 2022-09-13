@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springSleuthVersion = "3.1.3"
+val springSleuthVersion = "3.1.4"
 val springDocVersion = "1.6.11"
 
 plugins {
