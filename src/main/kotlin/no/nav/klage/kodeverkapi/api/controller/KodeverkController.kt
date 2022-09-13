@@ -55,6 +55,11 @@ class KodeverkController {
         return getKlageenhetList()
     }
 
+    @GetMapping("/klageenhetertoytelser", produces = ["application/json"])
+    fun getKlageenheterToYtelser(): List<KlageenhetKode> {
+        return getKlageenhetToYtelserList()
+    }
+
     @GetMapping("/klageenheterforankeinnsending", produces = ["application/json"])
     fun getKlageenheterForAnkeinnsending(): List<KodeverkSimpleDto> {
         return getKlageenheterForAnkeinnsendingList()
