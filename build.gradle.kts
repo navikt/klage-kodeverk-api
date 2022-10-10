@@ -4,9 +4,10 @@ val springSleuthVersion = "3.1.4"
 val springDocVersion = "1.6.11"
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+    val kotlinVersion = "1.7.20"
     id("org.springframework.boot") version "2.7.4"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.7.10"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
 }
 
 apply(plugin = "io.spring.dependency-management")
