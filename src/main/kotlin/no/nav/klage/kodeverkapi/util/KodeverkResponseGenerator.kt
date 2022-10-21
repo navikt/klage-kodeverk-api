@@ -2,6 +2,7 @@ package no.nav.klage.kodeverkapi.util
 
 import no.nav.klage.kodeverk.*
 import no.nav.klage.kodeverk.hjemmel.Hjemmel
+import no.nav.klage.kodeverk.hjemmel.Registreringshjemmel
 import no.nav.klage.kodeverk.hjemmel.ytelseTilHjemler
 import no.nav.klage.kodeverk.hjemmel.ytelseTilRegistreringshjemler
 import no.nav.klage.kodeverkapi.api.view.*
@@ -63,18 +64,35 @@ private fun Hjemmel.toKodeverkDto() =
         beskrivelse = lovKilde.navn + " - " + spesifikasjon,
     )
 
-private val ytelseToLovKildeToRegistreringshjemmel: Map<Ytelse, List<LovKildeToRegistreringshjemler>> =
+private val ytelseToLovKildeToRegistreringshjemmel: Map<Ytelse, List<LovKildeAndRegistreringshjemler>> =
     ytelseTilRegistreringshjemler.mapValues { (_, hjemler) ->
         hjemler.groupBy(
             { hjemmel -> hjemmel.lovKilde },
             { hjemmel -> KodeverkSimpleDto(hjemmel.id, hjemmel.spesifikasjon) }
         ).map { hjemmel ->
-            LovKildeToRegistreringshjemler(
+            LovKildeAndRegistreringshjemler(
                 hjemmel.key.toKodeverkDto(),
                 hjemmel.value
             )
         }
     }
+
+fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler> {
+    val hjemler = Registreringshjemmel.values()
+    val lovkildeGrouping = hjemler.groupBy {
+        it.lovKilde
+    }.map { (lovkilde, registreringshjemler) ->
+        LovKildeToRegistreringshjemler(
+            id = lovkilde.id,
+            navn = lovkilde.navn,
+            beskrivelse = lovkilde.beskrivelse,
+            registreringshjemler = registreringshjemler.map{
+                KodeverkSimpleDto(it.id, it.spesifikasjon)
+            }
+        )
+    }
+    return lovkildeGrouping
+}
 
 fun getTypeMap(): List<TypeToUtfallKode> =
     Type.values().map { type ->

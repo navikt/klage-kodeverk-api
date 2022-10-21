@@ -89,4 +89,9 @@ class KodeverkController {
     fun getBrevmottakertyper(): List<KodeverkSimpleDto> {
         return getBrevmottakertypeList()
     }
+
+    @GetMapping("/lovkildetoregistreringshjemler", produces = ["application/json"])
+    fun getLovKildeToRegistreringshjemler(): List<LovKildeToRegistreringshjemler> {
+        return getLovkildeToRegistreringshjemlerList()
+    }
 }
