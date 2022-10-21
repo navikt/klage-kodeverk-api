@@ -94,6 +94,18 @@ fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler
     return lovkildeGrouping
 }
 
+fun getRegistreringshjemlerMap(): List<Map<String, String>> {
+    return Registreringshjemmel.values().map {
+        mapOf(it.id to it.spesifikasjon)
+    }
+}
+
+fun getHjemlerMap(): List<Map<String, String>> {
+    return Hjemmel.values().map {
+        mapOf(it.id to it.spesifikasjon)
+    }
+}
+
 fun getTypeMap(): List<TypeToUtfallKode> =
     Type.values().map { type ->
         TypeToUtfallKode(
