@@ -96,13 +96,13 @@ fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler
 
 fun getRegistreringshjemlerMap(): Map<String, String> {
     return Registreringshjemmel.values().map {
-        it.id to it.spesifikasjon
+        it.id to "${it.lovKilde.beskrivelse} - ${it.spesifikasjon}"
     }.toMap()
 }
 
 fun getHjemlerMap(): Map<String, String> {
     return Hjemmel.values().map {
-        it.id to it.spesifikasjon
+        it.id to "${it.lovKilde.beskrivelse} - ${it.spesifikasjon}"
     }.toMap()
 }
 
