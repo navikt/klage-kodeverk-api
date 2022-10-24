@@ -96,12 +96,12 @@ class KodeverkController {
     }
 
     @GetMapping("/registreringshjemlermap", produces = ["application/json"])
-    fun getRegistreringshjemler(): List<Map<String, String>> {
+    fun getRegistreringshjemler(): Map<String, String> {
         return getRegistreringshjemlerMap()
     }
 
     @GetMapping("/hjemlermap", produces = ["application/json"])
-    fun getHjemler(): List<Map<String, String>> {
+    fun getHjemler(): Map<String, String> {
         return getHjemlerMap()
     }
 }
