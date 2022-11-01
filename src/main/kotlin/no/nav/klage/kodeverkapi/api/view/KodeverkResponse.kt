@@ -21,6 +21,11 @@ data class KodeverkDto(val id: String, val navn: String, val beskrivelse: String
 
 data class LovKildeAndRegistreringshjemler(val lovkilde: KodeverkDto, val registreringshjemler: List<KodeverkSimpleDto>)
 
+data class LovKildeAndHjemmelnavn(
+    val lovkilde: KodeverkDto,
+    val hjemmelnavn: String,
+)
+
 data class LovKildeToRegistreringshjemler(
     val id: String,
     val navn: String,

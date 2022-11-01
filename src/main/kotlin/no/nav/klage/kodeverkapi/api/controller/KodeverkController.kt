@@ -96,7 +96,7 @@ class KodeverkController {
     }
 
     @GetMapping("/registreringshjemlermap", produces = ["application/json"])
-    fun getRegistreringshjemler(): Map<String, String> {
+    fun getRegistreringshjemler(): Map<String, LovKildeAndHjemmelnavn> {
         return getRegistreringshjemlerMap()
     }
 

@@ -94,9 +94,12 @@ fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler
     return lovkildeGrouping
 }
 
-fun getRegistreringshjemlerMap(): Map<String, String> {
+fun getRegistreringshjemlerMap(): Map<String, LovKildeAndHjemmelnavn> {
     return Registreringshjemmel.values().map {
-        it.id to "${it.lovKilde.beskrivelse} - ${it.spesifikasjon}"
+        it.id to LovKildeAndHjemmelnavn(
+            lovkilde = it.lovKilde.toKodeverkDto(),
+            hjemmelnavn = it.spesifikasjon,
+        )
     }.toMap()
 }
 
