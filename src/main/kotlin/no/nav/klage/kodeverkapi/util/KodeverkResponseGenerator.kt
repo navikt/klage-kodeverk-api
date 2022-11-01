@@ -142,3 +142,5 @@ private fun Collection<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
 private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDto() }
 
 private fun Collection<Kode>.toEnhetKodeverkSimpleDto() = map { it.toEnhetKodeverkSimpleDto() }
+
+//Test commit
