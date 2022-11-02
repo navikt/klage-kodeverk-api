@@ -19,7 +19,19 @@ data class KodeverkSimpleDto(val id: String, val navn: String)
 
 data class KodeverkDto(val id: String, val navn: String, val beskrivelse: String)
 
-data class LovKildeToRegistreringshjemler(val lovkilde: KodeverkDto, val registreringshjemler: List<KodeverkSimpleDto>)
+data class LovKildeAndRegistreringshjemler(val lovkilde: KodeverkDto, val registreringshjemler: List<KodeverkSimpleDto>)
+
+data class LovKildeAndHjemmelnavn(
+    val lovkilde: KodeverkDto,
+    val hjemmelnavn: String,
+)
+
+data class LovKildeToRegistreringshjemler(
+    val id: String,
+    val navn: String,
+    val beskrivelse: String,
+    val registreringshjemler: List<KodeverkSimpleDto>
+)
 
 data class KlageenhetKode(
     val id: String,
@@ -30,7 +42,7 @@ data class KlageenhetKode(
 data class YtelseKode(
     val id: String,
     val navn: String,
-    val lovKildeToRegistreringshjemler: List<LovKildeToRegistreringshjemler>,
+    val lovKildeToRegistreringshjemler: List<LovKildeAndRegistreringshjemler>,
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
     val innsendingshjemler: List<KodeverkDto>,

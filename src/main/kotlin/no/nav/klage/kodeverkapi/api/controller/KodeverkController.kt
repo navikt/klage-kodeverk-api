@@ -31,7 +31,7 @@ class KodeverkController {
     }
 
     @GetMapping("/hjemler", produces = ["application/json"])
-    fun getHjemler(): List<KodeverkDto> {
+    fun getHjemlerDtos(): List<KodeverkDto> {
         return getHjemlerAsKodeverkDtos()
     }
 
@@ -88,5 +88,20 @@ class KodeverkController {
     @GetMapping("/brevmottakertyper", produces = ["application/json"])
     fun getBrevmottakertyper(): List<KodeverkSimpleDto> {
         return getBrevmottakertypeList()
+    }
+
+    @GetMapping("/lovkildetoregistreringshjemler", produces = ["application/json"])
+    fun getLovKildeToRegistreringshjemler(): List<LovKildeToRegistreringshjemler> {
+        return getLovkildeToRegistreringshjemlerList()
+    }
+
+    @GetMapping("/registreringshjemlermap", produces = ["application/json"])
+    fun getRegistreringshjemler(): Map<String, LovKildeAndHjemmelnavn> {
+        return getRegistreringshjemlerMap()
+    }
+
+    @GetMapping("/hjemlermap", produces = ["application/json"])
+    fun getHjemler(): Map<String, String> {
+        return getHjemlerMap()
     }
 }
