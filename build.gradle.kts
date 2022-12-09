@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springSleuthVersion = "3.1.4"
-val springDocVersion = "1.6.12"
+val springSleuthVersion = "3.1.5"
+val springDocVersion = "1.6.13"
 
 plugins {
-    val kotlinVersion = "1.7.20"
+    val kotlinVersion = "1.7.22"
     id("org.springframework.boot") version "2.7.5"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
@@ -27,7 +27,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springdoc:springdoc-openapi-ui:$springDocVersion")
-    implementation("com.github.navikt:klage-kodeverk:1.1.5")
+    implementation("com.github.navikt:klage-kodeverk:v1.1.9")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
