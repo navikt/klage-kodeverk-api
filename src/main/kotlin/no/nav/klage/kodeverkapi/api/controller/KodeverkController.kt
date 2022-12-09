@@ -15,13 +15,13 @@ class KodeverkController {
         return getKodeverkResponse()
     }
 
-    @GetMapping("/ytelser", produces = ["application/json"])
-    fun getYtelser(): List<KodeverkSimpleDto> {
-        return getYtelseList()
+    @GetMapping("/ytelser/v1", produces = ["application/json"])
+    fun getYtelserv1(): List<YtelseKode> {
+        return getYtelseMap()
     }
 
-    @GetMapping("/ytelsemap", produces = ["application/json"])
-    fun getYtelserMap(): List<YtelseKode> {
+    @GetMapping("/ytelser/v2", produces = ["application/json"])
+    fun getYtelserv2(): List<YtelseKode> {
         return getYtelseMap()
     }
 
