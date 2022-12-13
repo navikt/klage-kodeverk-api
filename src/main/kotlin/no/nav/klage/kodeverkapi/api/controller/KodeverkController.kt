@@ -51,10 +51,11 @@ class KodeverkController {
     }
 
     @GetMapping("/klageenheter", produces = ["application/json"])
-    fun getKlageenheter(): List<KodeverkSimpleDto> {
-        return getKlageenhetList()
+    fun getKlageenheter(): List<KlageenhetKode> {
+        return getKlageenhetToYtelserList()
     }
 
+    @Deprecated(message = "Use /klageenheter instead. This can be deleted when FE are in prod")
     @GetMapping("/klageenhetertoytelser", produces = ["application/json"])
     fun getKlageenheterToYtelser(): List<KlageenhetKode> {
         return getKlageenhetToYtelserList()
