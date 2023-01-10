@@ -101,6 +101,16 @@ class KodeverkController {
         return getLovkildeToRegistreringshjemlerList()
     }
 
+    @GetMapping("/lovkildetoregistreringshjemler/v1", produces = ["application/json"])
+    fun getLovKildeToRegistreringshjemlerv1(): List<LovKildeToRegistreringshjemler> {
+        return getLovkildeToRegistreringshjemlerListV1()
+    }
+
+    @GetMapping("/lovkildetoregistreringshjemler/v2", produces = ["application/json"])
+    fun getLovKildeToRegistreringshjemlerv2(): List<LovKildeToRegistreringshjemler> {
+        return getLovkildeToRegistreringshjemlerListV2()
+    }
+
     @GetMapping("/registreringshjemlermap", produces = ["application/json"])
     fun getRegistreringshjemler(): Map<String, LovKildeAndHjemmelnavn> {
         return getRegistreringshjemlerMap()

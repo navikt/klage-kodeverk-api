@@ -88,7 +88,24 @@ private val ytelseToLovKildeToRegistreringshjemmelV2: Map<Ytelse, List<LovKildeA
     }
 
 fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler> {
-    val hjemler = Registreringshjemmel.values()
+    val hjemler = Registreringshjemmel.values().toSet()
+    val lovkildeGrouping = lovKildeToRegistreringshjemler(hjemler)
+    return lovkildeGrouping
+}
+
+fun getLovkildeToRegistreringshjemlerListV1(): List<LovKildeToRegistreringshjemler> {
+    val hjemler = ytelseTilRegistreringshjemlerV1.map { it.value }.flatten().toSet()
+    val lovkildeGrouping = lovKildeToRegistreringshjemler(hjemler)
+    return lovkildeGrouping
+}
+
+fun getLovkildeToRegistreringshjemlerListV2(): List<LovKildeToRegistreringshjemler> {
+    val hjemler = ytelseTilRegistreringshjemlerV2.map { it.value }.flatten().toSet()
+    val lovkildeGrouping = lovKildeToRegistreringshjemler(hjemler)
+    return lovkildeGrouping
+}
+
+private fun lovKildeToRegistreringshjemler(hjemler: Set<Registreringshjemmel>): List<LovKildeToRegistreringshjemler> {
     val lovkildeGrouping = hjemler.groupBy {
         it.lovKilde
     }.map { (lovkilde, registreringshjemler) ->
@@ -96,7 +113,7 @@ fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler
             id = lovkilde.id,
             navn = lovkilde.navn,
             beskrivelse = lovkilde.beskrivelse,
-            registreringshjemler = registreringshjemler.map{
+            registreringshjemler = registreringshjemler.map {
                 KodeverkSimpleDto(it.id, it.spesifikasjon)
             }
         )
