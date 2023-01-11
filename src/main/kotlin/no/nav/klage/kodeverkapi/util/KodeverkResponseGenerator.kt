@@ -31,6 +31,8 @@ fun getStyringsenhetList() = styringsenheter.toList().toEnhetKodeverkSimpleDto()
 
 fun getTypeList() = Type.values().asList().toKodeverkSimpleDto()
 
+fun getYtelseList() = Ytelse.values().asList().toKodeverkSimpleDto()
+
 fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
 
 fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
