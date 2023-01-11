@@ -32,7 +32,7 @@ class KodeverkController {
 
     @GetMapping("/ytelser/simple", produces = ["application/json"])
     fun getYtelseList(): List<KodeverkSimpleDto> {
-        return getYtelseList()
+        return getSimpleYtelseList()
     }
 
     @GetMapping("/tema", produces = ["application/json"])
