@@ -171,9 +171,12 @@ fun getYtelseMapV2(): List<YtelseKode> =
 
 fun getYtelseMap(): List<YtelseKode> {
     return Ytelse.values().map { ytelse ->
-        val allRegistreringshjemler = setOf(ytelseTilRegistreringshjemlerV1[ytelse], ytelseTilRegistreringshjemlerV2[ytelse]).flatMap { it?.toSet() ?: emptySet() }.toSet()
+        val allRegistreringshjemler = setOf(
+            ytelseTilRegistreringshjemlerV1[ytelse],
+            ytelseTilRegistreringshjemlerV2[ytelse]
+        ).flatMap { it?.toSet() ?: emptySet() }.toSet().sortedBy { it.spesifikasjon }
         val lovKildeToRegistreringshjemler = allRegistreringshjemler.groupBy(
-            { hjemmel -> hjemmel.lovKilde},
+            { hjemmel -> hjemmel.lovKilde },
             { hjemmel -> KodeverkSimpleDto(hjemmel.id, hjemmel.spesifikasjon) },
         ).map { hjemmel ->
             LovKildeAndRegistreringshjemler(
