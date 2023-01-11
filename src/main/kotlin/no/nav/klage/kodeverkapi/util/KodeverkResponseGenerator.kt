@@ -31,6 +31,8 @@ fun getStyringsenhetList() = styringsenheter.toList().toEnhetKodeverkSimpleDto()
 
 fun getTypeList() = Type.values().asList().toKodeverkSimpleDto()
 
+fun getSimpleYtelseList() = Ytelse.values().asList().toKodeverkSimpleDto()
+
 fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
 
 fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
@@ -169,8 +171,31 @@ fun getYtelseMapV2(): List<YtelseKode> =
         )
     }
 
-fun getYtelseList(): List<KodeverkSimpleDto> {
-    return Ytelse.values().asList().toKodeverkSimpleDto()
+fun getYtelseMap(): List<YtelseKode> {
+    return Ytelse.values().map { ytelse ->
+        val allRegistreringshjemler = setOf(
+            ytelseTilRegistreringshjemlerV1[ytelse],
+            ytelseTilRegistreringshjemlerV2[ytelse]
+        ).flatMap { it?.toSet() ?: emptySet() }.toSet().sortedBy { it.spesifikasjon }
+        val lovKildeToRegistreringshjemler = allRegistreringshjemler.groupBy(
+            { hjemmel -> hjemmel.lovKilde },
+            { hjemmel -> KodeverkSimpleDto(hjemmel.id, hjemmel.spesifikasjon) },
+        ).map { hjemmel ->
+            LovKildeAndRegistreringshjemler(
+                hjemmel.key.toKodeverkDto(),
+                hjemmel.value
+            )
+        }
+
+        YtelseKode(
+            id = ytelse.id,
+            navn = ytelse.navn,
+            lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler,
+            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
+        )
+    }
 }
 
 private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse = beskrivelse)
