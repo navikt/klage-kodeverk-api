@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springSleuthVersion = "3.1.5"
-val springDocVersion = "1.6.14"
+val springDocVersion = "2.0.2"
+val kodeverkVersion = "1.2.4"
 
 plugins {
-    val kotlinVersion = "1.7.22"
-    id("org.springframework.boot") version "2.7.5"
+    val kotlinVersion = "1.8.0"
+    id("org.springframework.boot") version "3.0.1"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 }
@@ -23,11 +23,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.cloud:spring-cloud-starter-sleuth:$springSleuthVersion")
+
+    implementation("io.micrometer:micrometer-registry-prometheus")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.springdoc:springdoc-openapi-ui:$springDocVersion")
-    implementation("com.github.navikt:klage-kodeverk:v1.2.4")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
+    implementation("com.github.navikt:klage-kodeverk:$kodeverkVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

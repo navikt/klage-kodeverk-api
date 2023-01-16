@@ -3,14 +3,6 @@ spring:
     name: klage-kodeverk-api
   main:
     banner-mode: OFF
-  sleuth:
-    baggage:
-      remote-fields:
-        - Nav-Callid
-        - Nav-Consumer-Id
-      correlation-fields:
-        - Nav-Callid
-        - Nav-Consumer-Id
 
 management:
   health:
@@ -24,11 +16,12 @@ management:
       include: info, health, metrics, prometheus
     base-path: "/internal"
   metrics:
-    export:
-      prometheus:
-        enabled: true
     tags:
       application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
 
 server:
   port: 7081
