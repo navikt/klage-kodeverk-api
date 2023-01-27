@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springDocVersion = "2.0.2"
-val kodeverkVersion = "1.2.10"
+val kodeverkVersion = "1.2.11"
 
 plugins {
     val kotlinVersion = "1.8.0"
-    id("org.springframework.boot") version "3.0.1"
+    id("org.springframework.boot") version "3.0.2"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 }
