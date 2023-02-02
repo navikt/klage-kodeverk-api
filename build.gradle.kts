@@ -4,7 +4,7 @@ val springDocVersion = "2.0.2"
 val kodeverkVersion = "1.2.12"
 
 plugins {
-    val kotlinVersion = "1.8.0"
+    val kotlinVersion = "1.8.10"
     id("org.springframework.boot") version "3.0.2"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
