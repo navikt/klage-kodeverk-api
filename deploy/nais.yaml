@@ -57,6 +57,7 @@ spec:
         - application: kaka-frontend
         - application: kabal-frontend
         - application: klage-dittnav
+        - application: kabin
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: {{springProfile}}
