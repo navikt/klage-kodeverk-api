@@ -40,6 +40,11 @@ class KodeverkController {
         return getTemaList()
     }
 
+    @GetMapping("/fagsystemer", produces = ["application/json"])
+    fun getFagsystemer(): List<KodeverkDto> {
+        return getFagsystemList()
+    }
+
     @GetMapping("/hjemler", produces = ["application/json"])
     fun getHjemlerDtos(): List<KodeverkDto> {
         return getHjemlerAsKodeverkDtos()
