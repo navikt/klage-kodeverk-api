@@ -23,6 +23,8 @@ fun getKodeverkResponse(): KodeverkResponse {
 
 fun getTemaList() = Tema.values().asList().toKodeverkDto()
 
+fun getFagsystemList() = Fagsystem.values().asList().toKodeverkDto()
+
 fun getUtfallList() = Utfall.values().asList().toKodeverkSimpleDto()
 
 fun getEnhetList() = Enhet.values().asList().toEnhetKodeverkSimpleDto()
