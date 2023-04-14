@@ -3,6 +3,7 @@ package no.nav.klage.kodeverkapi.api.controller
 import no.nav.klage.kodeverkapi.api.view.*
 import no.nav.klage.kodeverkapi.util.*
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -38,6 +39,11 @@ class KodeverkController {
     @GetMapping("/tema", produces = ["application/json"])
     fun getTema(): List<KodeverkDto> {
         return getTemaList()
+    }
+
+    @GetMapping("/tema/{temaId}/ytelser/latest", produces = ["application/json"])
+    fun getYtelseListFromTema(@PathVariable temaId: String): List<KodeverkSimpleDto> {
+        return getSimpleYtelseListForTema(temaId)
     }
 
     @GetMapping("/fagsystemer", produces = ["application/json"])

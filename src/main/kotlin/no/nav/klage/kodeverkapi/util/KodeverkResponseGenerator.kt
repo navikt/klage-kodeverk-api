@@ -35,6 +35,10 @@ fun getTypeList() = Type.values().asList().toKodeverkSimpleDto()
 
 fun getSimpleYtelseList() = Ytelse.values().asList().toKodeverkSimpleDto()
 
+fun getSimpleYtelseListForTema(temaId: String): List<KodeverkSimpleDto> {
+    return Ytelse.values().asList().filter { it.toTema().id == temaId}.toKodeverkSimpleDto()
+}
+
 fun getSourceList() = Source.values().asList().toKodeverkSimpleDto()
 
 fun getBrevmottakertypeList() = Brevmottakertype.values().asList().toKodeverkSimpleDto()
