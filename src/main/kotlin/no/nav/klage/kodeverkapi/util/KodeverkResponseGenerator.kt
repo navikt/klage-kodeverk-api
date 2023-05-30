@@ -23,7 +23,16 @@ fun getKodeverkResponse(): KodeverkResponse {
 
 fun getTemaList() = Tema.values().asList().toKodeverkDto()
 
-fun getFagsystemList() = Fagsystem.values().asList().toKodeverkDto()
+fun getFagsystemList(): List<KodeverkFagsystemDto> {
+    return Fagsystem.values().map {
+        KodeverkFagsystemDto(
+            id = it.id,
+            navn = it.navn,
+            beskrivelse = it.beskrivelse,
+            modernized = it.modernized,
+        )
+    }
+}
 
 fun getUtfallList() = Utfall.values().asList().toKodeverkSimpleDto()
 

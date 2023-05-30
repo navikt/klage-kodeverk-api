@@ -47,7 +47,7 @@ class KodeverkController {
     }
 
     @GetMapping("/fagsystemer", produces = ["application/json"])
-    fun getFagsystemer(): List<KodeverkDto> {
+    fun getFagsystemer(): List<KodeverkFagsystemDto> {
         return getFagsystemList()
     }
 
