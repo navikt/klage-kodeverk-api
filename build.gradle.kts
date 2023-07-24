@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springDocVersion = "2.1.0"
-val kodeverkVersion = "1.5.5"
+val kodeverkVersion = "1.5.6"
 
 plugins {
     val kotlinVersion = "1.8.22"
