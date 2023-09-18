@@ -50,6 +50,12 @@ data class YtelseKode(
     val innsendingshjemler: List<KodeverkDto>,
 )
 
+data class KabalytelseKode(
+    val id: String,
+    val navn: String,
+    val lovKildeToRegistreringshjemler: List<LovKildeToRegistreringshjemler>
+)
+
 data class TypeToUtfallKode(
     val id: String,
     val navn: String,

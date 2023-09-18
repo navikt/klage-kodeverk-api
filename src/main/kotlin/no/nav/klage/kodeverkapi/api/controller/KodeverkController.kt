@@ -26,6 +26,11 @@ class KodeverkController {
         return getYtelseMapV2()
     }
 
+    @GetMapping("/kabal/ytelser/latest", produces = ["application/json"])
+    fun getKabalYtelser(): List<KabalytelseKode> {
+        return getKabalytelserMap()
+    }
+
     @GetMapping("/ytelser", produces = ["application/json"])
     fun getYtelser(): List<YtelseKode> {
         return getYtelseMap()
