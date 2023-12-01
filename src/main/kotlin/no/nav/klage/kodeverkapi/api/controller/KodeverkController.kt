@@ -141,4 +141,9 @@ class KodeverkController {
     fun getHjemler(): Map<String, String> {
         return getHjemlerMap()
     }
+
+    @GetMapping("/fradeling-reasons", produces = ["application/json"])
+    fun getFradelingReasons(): List<KodeverkSimpleDto> {
+        return getFradelingReasonList()
+    }
 }

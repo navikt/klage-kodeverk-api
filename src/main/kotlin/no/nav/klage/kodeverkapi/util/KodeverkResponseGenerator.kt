@@ -50,6 +50,8 @@ fun getSimpleYtelseListForTema(temaId: String): List<KodeverkSimpleDto> {
 
 fun getSourceList() = Source.entries.toKodeverkSimpleDto()
 
+fun getFradelingReasonList() = FradelingReason.entries.toKodeverkSimpleDto()
+
 fun getBrevmottakertypeList() = Brevmottakertype.entries.toKodeverkSimpleDto()
 
 fun getVedtaksenhetList() =
