@@ -36,6 +36,8 @@ fun getFagsystemList(): List<KodeverkFagsystemDto> {
 
 fun getUtfallList() = Utfall.entries.toKodeverkSimpleDto()
 
+fun getDokumenttyperList() = DokumentType.entries.toKodeverkSimpleDto()
+
 fun getEnhetList() = Enhet.entries.toEnhetKodeverkSimpleDto()
 
 fun getStyringsenhetList() = styringsenheter.toList().toEnhetKodeverkSimpleDto()

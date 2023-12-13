@@ -146,4 +146,9 @@ class KodeverkController {
     fun getFradelingReasons(): List<KodeverkSimpleDto> {
         return getFradelingReasonList()
     }
+
+    @GetMapping("/dokumenttyper", produces = ["application/json"])
+    fun getDokumenttyper(): List<KodeverkSimpleDto> {
+        return getDokumenttyperList()
+    }
 }
