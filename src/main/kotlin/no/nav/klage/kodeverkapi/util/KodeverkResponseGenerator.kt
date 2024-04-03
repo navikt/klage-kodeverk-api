@@ -58,8 +58,6 @@ fun getVedtaksenhetList() =
     Enhet.entries.filter { it !in klageenheter && it !in styringsenheter && it !in klageenheterForAnkeinnsending }
         .toEnhetKodeverkSimpleDto()
 
-fun getKlageenhetList() = klageenheter.toEnhetKodeverkSimpleDto()
-
 fun getKlageenheterForAnkeinnsendingList() = klageenheterForAnkeinnsending.toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
@@ -67,7 +65,7 @@ fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
         KlageenhetKode(
             id = klageenhetTilYtelse.key.navn,
             navn = klageenhetTilYtelse.key.beskrivelse,
-            ytelser = klageenhetTilYtelse.value.toKodeverkSimpleDto()
+            ytelser = klageenhetTilYtelse.value.toKodeverkSimpleDto().sortedBy { it.navn }
         )
     }
 

@@ -18,27 +18,27 @@ class KodeverkController {
 
     @GetMapping("/ytelser/v1", produces = ["application/json"])
     fun getYtelserv1(): List<YtelseKode> {
-        return getYtelseMapV1()
+        return getYtelseMapV1().sortedBy { it.navn }
     }
 
     @GetMapping("/ytelser/v2", "/ytelser/latest", produces = ["application/json"])
     fun getYtelserv2(): List<YtelseKode> {
-        return getYtelseMapV2()
+        return getYtelseMapV2().sortedBy { it.navn }
     }
 
     @GetMapping("/kabal/ytelser/latest", produces = ["application/json"])
     fun getKabalYtelser(): List<KabalytelseKode> {
-        return getKabalytelserMap()
+        return getKabalytelserMap().sortedBy { it.navn }
     }
 
     @GetMapping("/ytelser", produces = ["application/json"])
     fun getYtelser(): List<YtelseKode> {
-        return getYtelseMap()
+        return getYtelseMap().sortedBy { it.navn }
     }
 
     @GetMapping("/ytelser/simple", produces = ["application/json"])
     fun getYtelseList(): List<KodeverkSimpleDto> {
-        return getSimpleYtelseList()
+        return getSimpleYtelseList().sortedBy { it.navn }
     }
 
     @GetMapping("/tema", produces = ["application/json"])
@@ -78,12 +78,6 @@ class KodeverkController {
 
     @GetMapping("/klageenheter", produces = ["application/json"])
     fun getKlageenheter(): List<KlageenhetKode> {
-        return getKlageenhetToYtelserList()
-    }
-
-    @Deprecated(message = "Use /klageenheter instead. This can be deleted when FE are in prod")
-    @GetMapping("/klageenhetertoytelser", produces = ["application/json"])
-    fun getKlageenheterToYtelser(): List<KlageenhetKode> {
         return getKlageenhetToYtelserList()
     }
 
