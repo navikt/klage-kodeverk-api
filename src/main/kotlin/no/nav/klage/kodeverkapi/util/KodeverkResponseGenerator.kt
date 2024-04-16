@@ -2,6 +2,8 @@ package no.nav.klage.kodeverkapi.util
 
 import no.nav.klage.kodeverk.*
 import no.nav.klage.kodeverk.hjemmel.*
+import no.nav.klage.kodeverk.innsendingsytelse.Innsendingsytelse
+import no.nav.klage.kodeverk.innsendingsytelse.innsendingsytelseToDisplayName
 import no.nav.klage.kodeverkapi.api.view.*
 
 fun getKodeverkResponse(): KodeverkResponse {
@@ -222,6 +224,32 @@ fun getYtelseMap(): List<YtelseKode> {
             enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
             klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
             innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
+        )
+    }
+}
+
+fun getInnsendingsytelserForLanguageMap(language: LanguageEnum): Map<String, String> {
+    val output = mutableMapOf<String, String>()
+
+    Innsendingsytelse.entries.forEach {
+        when(language) {
+            LanguageEnum.nb -> output[it.name] = innsendingsytelseToDisplayName[it]!!.nb
+            LanguageEnum.en -> output[it.name] = innsendingsytelseToDisplayName[it]!!.en
+            LanguageEnum.nn -> output[it.name] = innsendingsytelseToDisplayName[it]!!.nn
+        }
+    }
+
+    return output
+}
+
+fun getInnsendingsytelserDisplayNameList(): List<DisplayNameDto> {
+    return Innsendingsytelse.entries.map {
+        DisplayNameDto(
+            id = it.id,
+            name = it.name,
+            nb = innsendingsytelseToDisplayName[it]!!.nb,
+            nn = innsendingsytelseToDisplayName[it]!!.nn,
+            en = innsendingsytelseToDisplayName[it]!!.en,
         )
     }
 }

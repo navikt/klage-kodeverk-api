@@ -140,4 +140,16 @@ class KodeverkController {
     fun getFradelingReasons(): List<KodeverkSimpleDto> {
         return getFradelingReasonList()
     }
+
+    @GetMapping("/innsendingsytelser/{language}", produces = ["application/json"])
+    fun getInnsendingsytelserForLanguage(
+        @PathVariable language: LanguageEnum
+    ): Map<String, String> {
+        return getInnsendingsytelserForLanguageMap(language = language)
+    }
+
+    @GetMapping("/innsendingsytelser", produces = ["application/json"])
+    fun getInnsendingsytelser(): List<DisplayNameDto>{
+        return getInnsendingsytelserDisplayNameList()
+    }
 }

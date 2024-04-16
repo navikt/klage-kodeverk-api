@@ -15,6 +15,8 @@ data class KodeverkResponse(
     val brevmottakertyper: List<KodeverkSimpleDto>,
 )
 
+data class DisplayNameDto(val id: String, val name: String, val nb: String, val nn: String, val en: String)
+
 data class KodeverkSimpleDto(val id: String, val navn: String)
 
 data class KodeverkDto(val id: String, val navn: String, val beskrivelse: String)
@@ -61,6 +63,7 @@ data class TypeToUtfallKode(
     val navn: String,
     val utfall: List<KodeverkSimpleDto>,
 )
+
 
 
 
