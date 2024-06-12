@@ -2,6 +2,7 @@ package no.nav.klage.kodeverkapi.api.controller
 
 import no.nav.klage.kodeverkapi.api.view.*
 import no.nav.klage.kodeverkapi.util.*
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -144,12 +145,12 @@ class KodeverkController {
 
     @GetMapping("/418")
     fun teapot(): ResponseEntity<String> {
-        return ResponseEntity.status(418).body("I'm a teapot")
+        return ResponseEntity.status(418).contentType(MediaType.APPLICATION_JSON).body("I'm a teapot")
     }
 
     @GetMapping("/418_big")
     fun teapotLarge(): ResponseEntity<String> {
-        return ResponseEntity.status(418).body("I'm a teapot".repeat(2000))
+        return ResponseEntity.status(418).contentType(MediaType.APPLICATION_JSON).body("I'm a teapot".repeat(2000))
     }
 
 }
