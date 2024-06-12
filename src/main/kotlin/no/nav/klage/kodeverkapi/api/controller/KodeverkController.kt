@@ -2,6 +2,7 @@ package no.nav.klage.kodeverkapi.api.controller
 
 import no.nav.klage.kodeverkapi.api.view.*
 import no.nav.klage.kodeverkapi.util.*
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -140,4 +141,15 @@ class KodeverkController {
     fun getFradelingReasons(): List<KodeverkSimpleDto> {
         return getFradelingReasonList()
     }
+
+    @GetMapping("/418")
+    fun teapot(): ResponseEntity<String> {
+        return ResponseEntity.status(418).body("I'm a teapot")
+    }
+
+    @GetMapping("/418_big")
+    fun teapotLarge(): ResponseEntity<String> {
+        return ResponseEntity.status(418).body("I'm a teapot".repeat(2000))
+    }
+
 }
