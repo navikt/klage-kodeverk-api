@@ -52,6 +52,8 @@ fun getSourceList() = Source.entries.toKodeverkSimpleDto()
 
 fun getFradelingReasonList() = FradelingReason.entries.toKodeverkSimpleDto()
 
+fun getTimeUnitTypeList() = TimeUnitType.entries.toKodeverkSimpleDto()
+
 fun getBrevmottakertypeList() = Brevmottakertype.entries.toKodeverkSimpleDto()
 
 fun getVedtaksenhetList() =

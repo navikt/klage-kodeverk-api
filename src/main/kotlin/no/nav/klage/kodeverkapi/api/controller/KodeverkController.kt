@@ -140,4 +140,9 @@ class KodeverkController {
     fun getFradelingReasons(): List<KodeverkSimpleDto> {
         return getFradelingReasonList()
     }
+
+    @GetMapping("/time-unit-types", produces = ["application/json"])
+    fun getTimeUnitTypes(): List<KodeverkSimpleDto> {
+        return getTimeUnitTypeList()
+    }
 }
