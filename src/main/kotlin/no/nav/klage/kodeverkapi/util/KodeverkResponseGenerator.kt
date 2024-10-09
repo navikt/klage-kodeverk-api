@@ -155,10 +155,21 @@ fun getHjemlerMap(): Map<String, String> {
 
 fun getTypeMap(): List<TypeToUtfallKode> =
     Type.entries.map { type ->
+        //Make sure "Retur" is at end of list
+        val sortedUtfallList = typeTilUtfall[type]?.mapNotNull {
+            if (it.navn != "Retur") {
+                it.toKodeverkSimpleDto()
+            } else null
+        }?.toMutableList() ?: mutableListOf()
+        val returUtfall = typeTilUtfall[type]?.find { it.navn == "Retur" }?.toKodeverkSimpleDto()
+        if (returUtfall != null) {
+            sortedUtfallList.add(returUtfall)
+        }
+
         TypeToUtfallKode(
             id = type.id,
             navn = type.navn,
-            utfall = typeTilUtfall[type]?.map { it.toKodeverkSimpleDto() } ?: emptyList()
+            utfall = sortedUtfallList
         )
     }
 
