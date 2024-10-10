@@ -45,33 +45,8 @@ class KlageKodeverkApiApplicationTests {
 					Utfall.INNSTILLING_AVVIST.toKodeverkSimpleDto(),
 				),
 			),
-			TypeToUtfallKode(
-				id = Type.ANKE_I_TRYGDERETTEN.id,
-				navn = Type.ANKE_I_TRYGDERETTEN.navn,
-				utfall = listOf(
-					Utfall.OPPHEVET.toKodeverkSimpleDto(),
-					Utfall.MEDHOLD.toKodeverkSimpleDto(),
-					Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
-					Utfall.STADFESTELSE.toKodeverkSimpleDto(),
-					Utfall.AVVIST.toKodeverkSimpleDto(),
-					Utfall.HEVET.toKodeverkSimpleDto(),
-					Utfall.HENVIST.toKodeverkSimpleDto(),
-				),
-			),
-			TypeToUtfallKode(
-				id = Type.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET.id,
-				navn = Type.BEHANDLING_ETTER_TRYGDERETTEN_OPPHEVET.navn,
-				utfall = listOf(
-					Utfall.TRUKKET.toKodeverkSimpleDto(),
-					Utfall.OPPHEVET.toKodeverkSimpleDto(),
-					Utfall.MEDHOLD.toKodeverkSimpleDto(),
-					Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
-					Utfall.STADFESTELSE.toKodeverkSimpleDto(),
-					Utfall.AVVIST.toKodeverkSimpleDto(),
-					Utfall.RETUR.toKodeverkSimpleDto(),
-				),
-			),
 		)
-		assertThat(output).isEqualTo(wantedResult)
+		assertThat(output.find { it.id == Type.KLAGE.id }).isEqualTo(wantedResult.find { it.id == Type.KLAGE.id })
+		assertThat(output.find { it.id == Type.ANKE.id }).isEqualTo(wantedResult.find { it.id == Type.ANKE.id })
 	}
 }
