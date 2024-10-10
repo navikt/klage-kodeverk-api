@@ -156,20 +156,15 @@ fun getHjemlerMap(): Map<String, String> {
 fun getTypeMap(): List<TypeToUtfallKode> =
     Type.entries.map { type ->
         //Make sure "Retur" is at end of list
-        val sortedUtfallList = typeTilUtfall[type]?.mapNotNull {
-            if (it.navn != "Retur") {
-                it.toKodeverkSimpleDto()
-            } else null
-        }?.toMutableList() ?: mutableListOf()
-        val returUtfall = typeTilUtfall[type]?.find { it.navn == "Retur" }?.toKodeverkSimpleDto()
-        if (returUtfall != null) {
-            sortedUtfallList.add(returUtfall)
+        val utfallList = typeTilUtfall[type]?.minus(Utfall.RETUR)?.toMutableList()
+        if (typeTilUtfall[type]?.contains(Utfall.RETUR) == true) {
+            utfallList!!.add(Utfall.RETUR)
         }
 
         TypeToUtfallKode(
             id = type.id,
             navn = type.navn,
-            utfall = sortedUtfallList
+            utfall = utfallList?.map { it.toKodeverkSimpleDto() } ?: emptyList()
         )
     }
 
@@ -239,7 +234,7 @@ fun getYtelseMap(): List<YtelseKode> {
 
 private fun Kode.toKodeverkDto() = KodeverkDto(id = id, navn = navn, beskrivelse = beskrivelse)
 
-private fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
+fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
 
 private fun Kode.toEnhetKodeverkSimpleDto() = KodeverkSimpleDto(id = navn, navn = beskrivelse)
 
