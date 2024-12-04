@@ -1,6 +1,7 @@
 package no.nav.klage.kodeverkapi.api.controller
 
 import no.nav.klage.kodeverkapi.api.view.*
+import no.nav.klage.kodeverkapi.domain.LanguageEnum
 import no.nav.klage.kodeverkapi.util.*
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -39,6 +40,11 @@ class KodeverkController {
     @GetMapping("/ytelser/simple", produces = ["application/json"])
     fun getYtelseList(): List<KodeverkSimpleDto> {
         return getSimpleYtelseList().sortedBy { it.navn }
+    }
+
+    @GetMapping("/ytelser/simple/{language}", produces = ["application/json"])
+    fun getYtelseDisplaynameListForLanguage(@PathVariable language: LanguageEnum): List<KodeverkSimpleDto> {
+        return getYtelseDisplaynameList(language).sortedBy { it.navn }
     }
 
     @GetMapping("/tema", produces = ["application/json"])
