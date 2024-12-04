@@ -64,6 +64,7 @@ spec:
         - application: kabal-frontend
         - application: klage-dittnav
         - application: kabin
+        - application: mine-klager
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: {{springProfile}}
