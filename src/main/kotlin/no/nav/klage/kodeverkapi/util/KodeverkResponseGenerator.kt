@@ -2,7 +2,12 @@ package no.nav.klage.kodeverkapi.util
 
 import no.nav.klage.kodeverk.*
 import no.nav.klage.kodeverk.hjemmel.*
+import no.nav.klage.kodeverk.ytelse.Ytelse
+import no.nav.klage.kodeverk.ytelse.ytelseToDisplayName
+import no.nav.klage.kodeverk.ytelse.ytelseToKlageenheter
+import no.nav.klage.kodeverk.ytelse.ytelseToVedtaksenheter
 import no.nav.klage.kodeverkapi.api.view.*
+import no.nav.klage.kodeverkapi.domain.LanguageEnum
 
 fun getKodeverkResponse(): KodeverkResponse {
     return KodeverkResponse(
@@ -61,7 +66,7 @@ fun getVedtaksenhetList() =
 fun getKlageenheterForAnkeinnsendingList() = klageenheterForAnkeinnsending.toEnhetKodeverkSimpleDto()
 
 fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
-    klageenhetTilYtelser.map { klageenhetTilYtelse ->
+    klageenhetToYtelser.map { klageenhetTilYtelse ->
         KlageenhetKode(
             id = klageenhetTilYtelse.key.navn,
             navn = klageenhetTilYtelse.key.beskrivelse,
@@ -79,7 +84,7 @@ private fun Hjemmel.toKodeverkDto() =
     )
 
 private val ytelseToLovKildeToRegistreringshjemmelV1: Map<Ytelse, List<LovKildeAndRegistreringshjemler>> =
-    ytelseTilRegistreringshjemlerV1.mapValues { (_, hjemler) ->
+    ytelseToRegistreringshjemlerV1.mapValues { (_, hjemler) ->
         hjemler.groupBy(
             { hjemmel -> hjemmel.lovKilde },
             { hjemmel -> KodeverkSimpleDto(hjemmel.id, hjemmel.spesifikasjon) }
@@ -92,7 +97,7 @@ private val ytelseToLovKildeToRegistreringshjemmelV1: Map<Ytelse, List<LovKildeA
     }
 
 private val ytelseToLovKildeToRegistreringshjemmelV2: Map<Ytelse, List<LovKildeAndRegistreringshjemler>> =
-    ytelseTilRegistreringshjemlerV2.mapValues { (_, hjemler) ->
+    ytelseToRegistreringshjemlerV2.mapValues { (_, hjemler) ->
         hjemler.groupBy(
             { hjemmel -> hjemmel.lovKilde },
             { hjemmel -> KodeverkSimpleDto(hjemmel.id, hjemmel.spesifikasjon) }
@@ -111,13 +116,13 @@ fun getLovkildeToRegistreringshjemlerList(): List<LovKildeToRegistreringshjemler
 }
 
 fun getLovkildeToRegistreringshjemlerListV1(): List<LovKildeToRegistreringshjemler> {
-    val hjemler = ytelseTilRegistreringshjemlerV1.map { it.value }.flatten().toSet()
+    val hjemler = ytelseToRegistreringshjemlerV1.map { it.value }.flatten().toSet()
     val lovkildeGrouping = lovKildeToRegistreringshjemler(hjemler)
     return lovkildeGrouping
 }
 
 fun getLovkildeToRegistreringshjemlerListV2(): List<LovKildeToRegistreringshjemler> {
-    val hjemler = ytelseTilRegistreringshjemlerV2.map { it.value }.flatten().toSet()
+    val hjemler = ytelseToRegistreringshjemlerV2.map { it.value }.flatten().toSet()
     val lovkildeGrouping = lovKildeToRegistreringshjemler(hjemler)
     return lovkildeGrouping
 }
@@ -156,8 +161,8 @@ fun getHjemlerMap(): Map<String, String> {
 fun getTypeMap(): List<TypeToUtfallKode> =
     Type.entries.map { type ->
         //Make sure "Retur" is at end of list
-        val utfallList = typeTilUtfall[type]?.minus(Utfall.RETUR)?.toMutableList()
-        if (typeTilUtfall[type]?.contains(Utfall.RETUR) == true) {
+        val utfallList = typeToUtfall[type]?.minus(Utfall.RETUR)?.toMutableList()
+        if (typeToUtfall[type]?.contains(Utfall.RETUR) == true) {
             utfallList!!.add(Utfall.RETUR)
         }
 
@@ -174,9 +179,9 @@ fun getYtelseMapV1(): List<YtelseKode> =
             id = ytelse.id,
             navn = ytelse.navn,
             lovKildeToRegistreringshjemler = ytelseToLovKildeToRegistreringshjemmelV1[ytelse] ?: emptyList(),
-            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
-            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
-            innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
+            enheter = ytelseToVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            klageenheter = ytelseToKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            innsendingshjemler = ytelseToHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
         )
     }
 
@@ -186,30 +191,30 @@ fun getYtelseMapV2(): List<YtelseKode> =
     }
 
 fun getKabalytelserMap(): List<KabalytelseKode> =
-    ytelseTilHjemler.keys.map { ytelse ->
+    ytelseToHjemler.keys.map { ytelse ->
         getKabalYtelseKodeV2(ytelse)
     }
 
 private fun getKabalYtelseKodeV2(ytelse: Ytelse) = KabalytelseKode(
     id = ytelse.id,
     navn = ytelse.navn,
-    lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler(ytelseTilRegistreringshjemlerV2[ytelse]!!.toSet())
+    lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler(ytelseToRegistreringshjemlerV2[ytelse]!!.toSet())
 )
 
 private fun ytelseKodeV2(ytelse: Ytelse) = YtelseKode(
     id = ytelse.id,
     navn = ytelse.navn,
     lovKildeToRegistreringshjemler = ytelseToLovKildeToRegistreringshjemmelV2[ytelse] ?: emptyList(),
-    enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
-    klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
-    innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
+    enheter = ytelseToVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+    klageenheter = ytelseToKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+    innsendingshjemler = ytelseToHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
 )
 
 fun getYtelseMap(): List<YtelseKode> {
     return Ytelse.entries.map { ytelse ->
         val allRegistreringshjemler = setOf(
-            ytelseTilRegistreringshjemlerV1[ytelse],
-            ytelseTilRegistreringshjemlerV2[ytelse]
+            ytelseToRegistreringshjemlerV1[ytelse],
+            ytelseToRegistreringshjemlerV2[ytelse]
         ).flatMap { it?.toSet() ?: emptySet() }.toSet().sortedBy { it.spesifikasjon }
         val lovKildeToRegistreringshjemler = allRegistreringshjemler.groupBy(
             { hjemmel -> hjemmel.lovKilde },
@@ -225,9 +230,22 @@ fun getYtelseMap(): List<YtelseKode> {
             id = ytelse.id,
             navn = ytelse.navn,
             lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler,
-            enheter = ytelseTilVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
-            klageenheter = ytelseTilKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
-            innsendingshjemler = ytelseTilHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
+            enheter = ytelseToVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            klageenheter = ytelseToKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
+            innsendingshjemler = ytelseToHjemler[ytelse]?.map { it.toKodeverkDto() } ?: emptyList()
+        )
+    }
+}
+
+fun getYtelseDisplaynameList(language: LanguageEnum): List<KodeverkSimpleDto> {
+    return Ytelse.entries.map { ytelse ->
+        KodeverkSimpleDto(
+            id = ytelse.id,
+            navn = when (language) {
+                LanguageEnum.NB -> ytelseToDisplayName[ytelse]!!.nb
+                LanguageEnum.EN -> ytelseToDisplayName[ytelse]!!.en
+                LanguageEnum.NN -> ytelseToDisplayName[ytelse]!!.nn
+            }
         )
     }
 }
