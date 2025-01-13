@@ -2,6 +2,8 @@ package no.nav.klage.kodeverkapi.util
 
 import no.nav.klage.kodeverk.*
 import no.nav.klage.kodeverk.hjemmel.*
+import no.nav.klage.kodeverk.innsendingsytelse.Innsendingsytelse
+import no.nav.klage.kodeverk.innsendingsytelse.innsendingsytelseToDisplayName
 import no.nav.klage.kodeverk.ytelse.Ytelse
 import no.nav.klage.kodeverk.ytelse.ytelseToDisplayName
 import no.nav.klage.kodeverk.ytelse.ytelseToKlageenheter
@@ -245,6 +247,19 @@ fun getYtelseDisplaynameList(language: LanguageEnum): List<KodeverkSimpleDto> {
                 LanguageEnum.NB -> ytelseToDisplayName[ytelse]!!.nb
                 LanguageEnum.EN -> ytelseToDisplayName[ytelse]!!.en
                 LanguageEnum.NN -> ytelseToDisplayName[ytelse]!!.nn
+            }
+        )
+    }
+}
+
+fun getInnsendingsytelseDisplaynameList(language: LanguageEnum): List<KodeverkSimpleDto> {
+    return Innsendingsytelse.entries.map { innsendingsytelse ->
+        KodeverkSimpleDto(
+            id = innsendingsytelse.id,
+            navn = when (language) {
+                LanguageEnum.NB -> innsendingsytelseToDisplayName[innsendingsytelse]!!.nb
+                LanguageEnum.EN -> innsendingsytelseToDisplayName[innsendingsytelse]!!.en
+                LanguageEnum.NN -> innsendingsytelseToDisplayName[innsendingsytelse]!!.nn
             }
         )
     }

@@ -47,6 +47,11 @@ class KodeverkController {
         return getYtelseDisplaynameList(language).sortedBy { it.navn }
     }
 
+    @GetMapping("/innsendingsytelser/{language}", produces = ["application/json"])
+    fun getInnsendingsytelseDisplaynameListForLanguage(@PathVariable language: LanguageEnum): List<KodeverkSimpleDto> {
+        return getInnsendingsytelseDisplaynameList(language).sortedBy { it.navn }
+    }
+
     @GetMapping("/tema", produces = ["application/json"])
     fun getTema(): List<KodeverkDto> {
         return getTemaList()
