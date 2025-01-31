@@ -30,6 +30,7 @@ class KlageKodeverkApiApplicationTests {
 					Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
 					Utfall.STADFESTELSE.toKodeverkSimpleDto(),
 					Utfall.AVVIST.toKodeverkSimpleDto(),
+					Utfall.UGUNST.toKodeverkSimpleDto(),
 					Utfall.RETUR.toKodeverkSimpleDto(),
 				),
 			),
