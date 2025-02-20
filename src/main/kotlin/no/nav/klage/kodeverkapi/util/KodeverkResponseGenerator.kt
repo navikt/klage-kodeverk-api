@@ -76,7 +76,7 @@ fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
         )
     }
 
-fun getHjemlerAsKodeverkDtos() = Hjemmel.entries.map { it.toKodeverkDto() }
+fun getHjemlerAsKodeverkDtos() = Hjemmel.entries.map { it.toKodeverkDto() }.sortedWith(kodeverkDtoComparator)
 
 private fun Hjemmel.toKodeverkDto() =
     KodeverkDto(
@@ -93,7 +93,7 @@ private val ytelseToLovKildeToRegistreringshjemmelV1: Map<Ytelse, List<LovKildeA
         ).map { hjemmel ->
             LovKildeAndRegistreringshjemler(
                 hjemmel.key.toKodeverkDto(),
-                hjemmel.value
+                hjemmel.value.sortedWith(kodeverkSimpleDtoComparator)
             )
         }
     }
@@ -106,7 +106,7 @@ private val ytelseToLovKildeToRegistreringshjemmelV2: Map<Ytelse, List<LovKildeA
         ).map { hjemmel ->
             LovKildeAndRegistreringshjemler(
                 hjemmel.key.toKodeverkDto(),
-                hjemmel.value
+                hjemmel.value.sortedWith(kodeverkSimpleDtoComparator)
             )
         }
     }
@@ -139,7 +139,7 @@ private fun lovKildeToRegistreringshjemler(hjemler: Set<Registreringshjemmel>): 
             beskrivelse = lovkilde.beskrivelse,
             registreringshjemler = registreringshjemler.map {
                 KodeverkSimpleDto(it.id, it.spesifikasjon)
-            }
+            }.sortedWith(kodeverkSimpleDtoComparator)
         )
     }
     return lovkildeGrouping
@@ -278,6 +278,12 @@ private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDt
 private fun Collection<Kode>.toEnhetKodeverkSimpleDto() = map { it.toEnhetKodeverkSimpleDto() }
 
 val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
+    val firstNavn = o1?.navn
+    val secondNavn = o2?.navn
+    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
+}
+
+val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
     val firstNavn = o1?.navn
     val secondNavn = o2?.navn
     stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)

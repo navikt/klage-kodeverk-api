@@ -3,10 +3,7 @@ package no.nav.klage.kodeverkapi
 import no.nav.klage.kodeverk.Type
 import no.nav.klage.kodeverk.Utfall
 import no.nav.klage.kodeverkapi.api.view.TypeToUtfallKode
-import no.nav.klage.kodeverkapi.util.getTypeMap
-import no.nav.klage.kodeverkapi.util.getYtelseMap
-import no.nav.klage.kodeverkapi.util.stringComparatorRespectingNumerals
-import no.nav.klage.kodeverkapi.util.toKodeverkSimpleDto
+import no.nav.klage.kodeverkapi.util.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.assertj.core.api.Assertions.assertThat
@@ -55,12 +52,21 @@ class KlageKodeverkApiApplicationTests {
 
 	@Test
 	fun stringComparatorRespectingNumeralsTest() {
+		assertThat(stringComparatorRespectingNumerals.compare("1", "1-8")).isLessThan(0)
+		assertThat(stringComparatorRespectingNumerals.compare("1-8", "1")).isGreaterThan(0)
+		assertThat(stringComparatorRespectingNumerals.compare("5", "2")).isGreaterThan(0)
+		assertThat(stringComparatorRespectingNumerals.compare("1", "1")).isEqualTo(0)
+
 		val string1 = "§ 1-9"
 		val string2 = "§ 2-11"
 		val string3 = "§ 23-10"
 		val string4 = "§ 2-10"
-		val stringList = listOf(string1, string2, string3, string4)
+		val string5 = "§ 2-10c"
+		val string6 = "§ 2-10a"
+		val string7 = "§ 2-10b"
+		val string8 = "§ 1"
+		val stringList = listOf(string1, string2, string3, string4, string5, string6, string7, string8)
 		val output = stringList.sortedWith(stringComparatorRespectingNumerals)
-		assertThat(output).isEqualTo(listOf(string1, string4, string2, string3))
+		assertThat(output).isEqualTo(listOf(string8, string1, string4, string6, string7, string5, string2, string3))
 	}
 }
