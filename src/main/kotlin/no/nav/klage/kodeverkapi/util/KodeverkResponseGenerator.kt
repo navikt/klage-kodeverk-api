@@ -224,7 +224,7 @@ fun getYtelseMap(): List<YtelseKode> {
         ).map { hjemmel ->
             LovKildeAndRegistreringshjemler(
                 hjemmel.key.toKodeverkDto(),
-                hjemmel.value
+                hjemmel.value.sortedWith(kodeverkSimpleDtoComparator)
             )
         }
 
@@ -277,4 +277,10 @@ private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDt
 
 private fun Collection<Kode>.toEnhetKodeverkSimpleDto() = map { it.toEnhetKodeverkSimpleDto() }
 
-//Test commit
+val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
+    val firstNavn = o1?.navn
+    val secondNavn = o2?.navn
+    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
+}
+
+

@@ -4,6 +4,8 @@ import no.nav.klage.kodeverk.Type
 import no.nav.klage.kodeverk.Utfall
 import no.nav.klage.kodeverkapi.api.view.TypeToUtfallKode
 import no.nav.klage.kodeverkapi.util.getTypeMap
+import no.nav.klage.kodeverkapi.util.getYtelseMap
+import no.nav.klage.kodeverkapi.util.stringComparatorRespectingNumerals
 import no.nav.klage.kodeverkapi.util.toKodeverkSimpleDto
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -49,5 +51,16 @@ class KlageKodeverkApiApplicationTests {
 		)
 		assertThat(output.find { it.id == Type.KLAGE.id }).isEqualTo(wantedResult.find { it.id == Type.KLAGE.id })
 		assertThat(output.find { it.id == Type.ANKE.id }).isEqualTo(wantedResult.find { it.id == Type.ANKE.id })
+	}
+
+	@Test
+	fun stringComparatorRespectingNumeralsTest() {
+		val string1 = "§ 1-9"
+		val string2 = "§ 2-11"
+		val string3 = "§ 23-10"
+		val string4 = "§ 2-10"
+		val stringList = listOf(string1, string2, string3, string4)
+		val output = stringList.sortedWith(stringComparatorRespectingNumerals)
+		assertThat(output).isEqualTo(listOf(string1, string4, string2, string3))
 	}
 }
