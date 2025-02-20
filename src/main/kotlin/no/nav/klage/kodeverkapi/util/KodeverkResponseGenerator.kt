@@ -11,6 +11,18 @@ import no.nav.klage.kodeverk.ytelse.ytelseToVedtaksenheter
 import no.nav.klage.kodeverkapi.api.view.*
 import no.nav.klage.kodeverkapi.domain.LanguageEnum
 
+val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
+    val firstNavn = o1?.navn
+    val secondNavn = o2?.navn
+    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
+}
+
+val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
+    val firstNavn = o1?.navn
+    val secondNavn = o2?.navn
+    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
+}
+
 fun getKodeverkResponse(): KodeverkResponse {
     return KodeverkResponse(
         ytelser = getYtelseMapV1(),
@@ -276,17 +288,5 @@ private fun Collection<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
 private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDto() }
 
 private fun Collection<Kode>.toEnhetKodeverkSimpleDto() = map { it.toEnhetKodeverkSimpleDto() }
-
-val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
-    val firstNavn = o1?.navn
-    val secondNavn = o2?.navn
-    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
-}
-
-val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
-    val firstNavn = o1?.navn
-    val secondNavn = o2?.navn
-    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
-}
 
 
