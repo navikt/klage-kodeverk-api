@@ -15,7 +15,7 @@ val hjemmelComparator = Comparator<String> { value1, value2 ->
 }
 
 private fun String.toComparisonList() =
-    digitRegex.findAll(input = this).mapNotNull { it.groupValues.first().takeIf { s -> s.isNotBlank() } }.toList()
+    digitRegex.findAll(input = this).mapNotNull { it.groupValues.first().takeIf { s -> s.isNotBlank() } }.map { it.lowercase() } .toList()
 
 private val numberOrOrdinalOrStringComparator = Comparator<String> { value1, value2 ->
     val value1PotentialInt = value1.toIntOrNull()
@@ -27,11 +27,13 @@ private val numberOrOrdinalOrStringComparator = Comparator<String> { value1, val
     }
 
     val value1PotentialOrdinal = Ordinal.entries.find { it.name == value1 }
-    if (value1PotentialOrdinal != null) {
-        val value2PotentialOrdinal = Ordinal.entries.find { it.name == value2 }
-        if (value2PotentialOrdinal != null) {
-            return@Comparator value1PotentialOrdinal.compareTo(value2PotentialOrdinal)
-        }
+    val value2PotentialOrdinal = Ordinal.entries.find { it.name == value2 }
+    if (value1PotentialOrdinal != null && value2PotentialOrdinal != null) {
+        return@Comparator value1PotentialOrdinal.compareTo(value2PotentialOrdinal)
+    } else if (value1PotentialOrdinal != null) {
+        return@Comparator -1
+    } else if (value2PotentialOrdinal != null) {
+        return@Comparator 1
     }
 
     value1.compareTo(value2)
@@ -51,4 +53,5 @@ private enum class Ordinal {
     åttende,
     niende,
     tiende,
+    siste,
 }

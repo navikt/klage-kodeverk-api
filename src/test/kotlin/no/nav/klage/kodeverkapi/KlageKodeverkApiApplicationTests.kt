@@ -56,10 +56,11 @@ class KlageKodeverkApiApplicationTests {
     @Test
     fun hjemmelComparatorTest() {
 //        val l =
-//            ytelseToRegistreringshjemlerV2.flatMap { it.value }.map { it.spesifikasjon }.filter { it.contains("ledd") }
+//            ytelseToRegistreringshjemlerV2.flatMap { it.value }.map { it.spesifikasjon }.filter { it.contains("§ 1") && (it.contains("ledd") || (it.contains("ortoser"))) }
 //        val leddTest = l.sortedWith(hjemmelComparator)
 
         assertThat(hjemmelComparator.compare("1 andre ledd", "1 første ledd")).isGreaterThan(0)
+        assertThat(hjemmelComparator.compare("1 første ledd", "1 brev ledd")).isGreaterThan(0)
         assertThat(hjemmelComparator.compare("1", "1-8")).isLessThan(0)
         assertThat(hjemmelComparator.compare("1-8", "1")).isGreaterThan(0)
         assertThat(hjemmelComparator.compare("5", "2")).isGreaterThan(0)
