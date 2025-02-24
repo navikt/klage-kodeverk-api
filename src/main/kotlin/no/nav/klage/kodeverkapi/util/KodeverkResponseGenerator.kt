@@ -14,13 +14,13 @@ import no.nav.klage.kodeverkapi.domain.LanguageEnum
 val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
     val firstNavn = o1?.navn
     val secondNavn = o2?.navn
-    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
+    hjemmelComparator.compare(firstNavn, secondNavn)
 }
 
 val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
     val firstNavn = o1?.navn
     val secondNavn = o2?.navn
-    stringComparatorRespectingNumerals.compare(firstNavn, secondNavn)
+    hjemmelComparator.compare(firstNavn, secondNavn)
 }
 
 fun getKodeverkResponse(): KodeverkResponse {
