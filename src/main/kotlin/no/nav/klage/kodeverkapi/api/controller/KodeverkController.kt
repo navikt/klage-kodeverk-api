@@ -148,12 +148,12 @@ class KodeverkController {
     }
 
     @GetMapping("/fradeling-reasons", produces = ["application/json"])
-    fun getFradelingReasons(): List<KodeverkSimpleDto> {
+    fun getFradelingReasons(): List<KodeverkDto> {
         return getFradelingReasonList()
     }
 
     @GetMapping("/satt-paa-vent-reasons", produces = ["application/json"])
-    fun getSattPaaVentReasons(): List<KodeverkSimpleDto> {
+    fun getSattPaaVentReasons(): List<KodeverkDto> {
         return getSattPaaVentReasonList()
     }
 }

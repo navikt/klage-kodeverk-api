@@ -69,9 +69,9 @@ fun getSimpleYtelseListForTema(temaId: String): List<KodeverkSimpleDto> {
 
 fun getSourceList() = Source.entries.toKodeverkSimpleDto()
 
-fun getFradelingReasonList() = FradelingReason.entries.toKodeverkSimpleDto()
+fun getFradelingReasonList() = FradelingReason.entries.toKodeverkDto()
 
-fun getSattPaaVentReasonList() = SattPaaVentReason.entries.toKodeverkSimpleDto()
+fun getSattPaaVentReasonList() = SattPaaVentReason.entries.toKodeverkDto()
 
 fun getBrevmottakertypeList() = Brevmottakertype.entries.toKodeverkSimpleDto()
 
