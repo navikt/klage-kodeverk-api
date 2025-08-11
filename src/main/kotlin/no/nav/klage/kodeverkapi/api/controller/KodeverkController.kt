@@ -151,4 +151,9 @@ class KodeverkController {
     fun getFradelingReasons(): List<KodeverkSimpleDto> {
         return getFradelingReasonList()
     }
+
+    @GetMapping("/satt-paa-vent-reasons", produces = ["application/json"])
+    fun getSattPaaVentReasons(): List<KodeverkSimpleDto> {
+        return getSattPaaVentReasonList()
+    }
 }
