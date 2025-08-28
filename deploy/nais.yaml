@@ -65,6 +65,7 @@ spec:
         - application: klage-dittnav
         - application: kabin
         - application: mine-klager
+        - application: kaptein
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: {{springProfile}}
