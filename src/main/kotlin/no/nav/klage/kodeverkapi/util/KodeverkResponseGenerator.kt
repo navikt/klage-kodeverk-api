@@ -34,7 +34,7 @@ fun getKodeverkResponse(): KodeverkResponse {
         klageenheter = getKlageenhetToYtelserList(),
         styringsenheter = getStyringsenhetList(),
         sakstyper = getTypeList(),
-        sakstyperToUtfall = getTypeMap(),
+        sakstyperToUtfall = getTypeToUtfallMap(),
         sources = getSourceList(),
         brevmottakertyper = getBrevmottakertypeList(),
     )
@@ -71,7 +71,11 @@ fun getSourceList() = Source.entries.toKodeverkSimpleDto()
 
 fun getFradelingReasonList() = FradelingReason.entries.toKodeverkDto()
 
-fun getSattPaaVentReasonList() = SattPaaVentReason.entries.toKodeverkDto()
+fun getSattPaaVentReasonList(): List<KodeverkDto> {
+    val sattPaaVentReasonList = SattPaaVentReason.entries.minus(SattPaaVentReason.ANNET).toKodeverkDto().toMutableList()
+    sattPaaVentReasonList.add(SattPaaVentReason.ANNET.toKodeverkDto())
+    return sattPaaVentReasonList
+}
 
 fun getBrevmottakertypeList() = Brevmottakertype.entries.toKodeverkSimpleDto()
 
@@ -174,7 +178,7 @@ fun getHjemlerMap(): Map<String, String> {
     }.toMap()
 }
 
-fun getTypeMap(): List<TypeToUtfallKode> =
+fun getTypeToUtfallMap(): List<TypeToUtfallKode> =
     Type.entries.map { type ->
         //Make sure "Retur" is at end of list
         val utfallList = typeToUtfall[type]?.minus(Utfall.RETUR)?.toMutableList()
@@ -186,6 +190,21 @@ fun getTypeMap(): List<TypeToUtfallKode> =
             id = type.id,
             navn = type.navn,
             utfall = utfallList?.map { it.toKodeverkSimpleDto() } ?: emptyList()
+        )
+    }
+
+fun getTypeToSattPaaVentReasonMap(): List<TypeToSattPaaVentReasons> =
+    Type.entries.map { type ->
+        //Make sure "Annet" is at end of list
+        val sattPaaVentReasonList = typeToSattPaaVentReason[type]?.minus(SattPaaVentReason.ANNET)?.toMutableList()
+        if (typeToSattPaaVentReason[type]?.contains(SattPaaVentReason.ANNET) == true) {
+            sattPaaVentReasonList!!.add(SattPaaVentReason.ANNET)
+        }
+
+        TypeToSattPaaVentReasons(
+            id = type.id,
+            navn = type.navn,
+            sattPaaVentReasons = sattPaaVentReasonList?.map { it.toKodeverkSimpleDto() } ?: emptyList()
         )
     }
 

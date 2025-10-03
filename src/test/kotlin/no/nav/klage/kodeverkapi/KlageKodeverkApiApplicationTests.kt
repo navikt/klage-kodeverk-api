@@ -2,9 +2,8 @@ package no.nav.klage.kodeverkapi
 
 import no.nav.klage.kodeverk.Type
 import no.nav.klage.kodeverk.Utfall
-import no.nav.klage.kodeverk.hjemmel.ytelseToRegistreringshjemlerV2
 import no.nav.klage.kodeverkapi.api.view.TypeToUtfallKode
-import no.nav.klage.kodeverkapi.util.getTypeMap
+import no.nav.klage.kodeverkapi.util.getTypeToUtfallMap
 import no.nav.klage.kodeverkapi.util.hjemmelComparator
 import no.nav.klage.kodeverkapi.util.toKodeverkSimpleDto
 import org.assertj.core.api.Assertions.assertThat
@@ -20,7 +19,7 @@ class KlageKodeverkApiApplicationTests {
 
     @Test
     fun utfallSort() {
-        val output = getTypeMap()
+        val output = getTypeToUtfallMap()
         val wantedResult = listOf(
             TypeToUtfallKode(
                 id = Type.KLAGE.id,

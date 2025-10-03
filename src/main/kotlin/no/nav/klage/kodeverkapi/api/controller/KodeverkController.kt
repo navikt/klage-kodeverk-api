@@ -109,7 +109,7 @@ class KodeverkController {
 
     @GetMapping("/sakstypertoutfall", produces = ["application/json"])
     fun getSakstyperToUtfall(): List<TypeToUtfallKode> {
-        return getTypeMap()
+        return getTypeToUtfallMap()
     }
 
     @GetMapping("/sources", produces = ["application/json"])
@@ -155,5 +155,10 @@ class KodeverkController {
     @GetMapping("/satt-paa-vent-reasons", produces = ["application/json"])
     fun getSattPaaVentReasons(): List<KodeverkDto> {
         return getSattPaaVentReasonList()
+    }
+
+    @GetMapping("/sakstyper-to-satt-paa-vent-reasons", produces = ["application/json"])
+    fun getSakstyperToSattPaaVentReasons(): List<TypeToSattPaaVentReasons> {
+        return getTypeToSattPaaVentReasonMap()
     }
 }
