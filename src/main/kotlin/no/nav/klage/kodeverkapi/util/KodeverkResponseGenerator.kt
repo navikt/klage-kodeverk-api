@@ -72,9 +72,9 @@ fun getSourceList() = Source.entries.toKodeverkSimpleDto()
 fun getFradelingReasonList() = FradelingReason.entries.toKodeverkDto()
 
 fun getSattPaaVentReasonList(): List<KodeverkDto> {
-    val sattPaaVentReasonList = SattPaaVentReason.entries.toKodeverkDto().minus(SattPaaVentReason.ANNET).toMutableList()
-    sattPaaVentReasonList.add(SattPaaVentReason.ANNET)
-    return SattPaaVentReason.entries.toKodeverkDto()
+    val sattPaaVentReasonList = SattPaaVentReason.entries.minus(SattPaaVentReason.ANNET).toKodeverkDto().toMutableList()
+    sattPaaVentReasonList.add(SattPaaVentReason.ANNET.toKodeverkDto())
+    return sattPaaVentReasonList
 }
 
 fun getBrevmottakertypeList() = Brevmottakertype.entries.toKodeverkSimpleDto()
