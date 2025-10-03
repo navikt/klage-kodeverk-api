@@ -62,5 +62,11 @@ data class TypeToUtfallKode(
     val utfall: List<KodeverkSimpleDto>,
 )
 
+data class TypeToSattPaaVentReasons(
+    val id: String,
+    val navn: String,
+    val sattPaaVentReasons: List<KodeverkSimpleDto>,
+)
+
 
 
