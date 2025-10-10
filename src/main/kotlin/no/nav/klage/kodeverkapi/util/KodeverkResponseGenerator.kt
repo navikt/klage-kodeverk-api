@@ -204,7 +204,7 @@ fun getTypeToSattPaaVentReasonMap(): List<TypeToSattPaaVentReasons> =
         TypeToSattPaaVentReasons(
             id = type.id,
             navn = type.navn,
-            sattPaaVentReasons = sattPaaVentReasonList?.map { it.toKodeverkSimpleDto() } ?: emptyList()
+            sattPaaVentReasons = sattPaaVentReasonList?.map { it.toKodeverkDto() } ?: emptyList()
         )
     }
 
