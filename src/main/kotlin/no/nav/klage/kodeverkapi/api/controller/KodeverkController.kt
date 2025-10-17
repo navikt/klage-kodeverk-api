@@ -112,6 +112,11 @@ class KodeverkController {
         return getTypeToUtfallMap()
     }
 
+    @GetMapping("/sakstypertoutfall/{sakstypeId}", produces = ["application/json"])
+    fun getSakstyperToUtfall(@PathVariable sakstypeId: String): List<KodeverkSimpleDto> {
+        return getUtfallForSakstype(sakstypeId)
+    }
+
     @GetMapping("/sources", produces = ["application/json"])
     fun getSources(): List<KodeverkSimpleDto> {
         return getSourceList()
