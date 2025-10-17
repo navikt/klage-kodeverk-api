@@ -193,6 +193,16 @@ fun getTypeToUtfallMap(): List<TypeToUtfallKode> =
         )
     }
 
+fun getUtfallForSakstype(saksTypeId: String): List<KodeverkSimpleDto> {
+    val type = Type.of(id = saksTypeId)
+    val utfallList = typeToUtfall[type]?.minus(Utfall.RETUR)?.toMutableList()
+    if (typeToUtfall[type]?.contains(Utfall.RETUR) == true) {
+        utfallList!!.add(Utfall.RETUR)
+    }
+    return utfallList?.map { it.toKodeverkSimpleDto() } ?: emptyList()
+}
+
+
 fun getTypeToSattPaaVentReasonMap(): List<TypeToSattPaaVentReasons> =
     Type.entries.map { type ->
         //Make sure "Annet" is at end of list
@@ -304,7 +314,7 @@ fun Kode.toKodeverkSimpleDto() = KodeverkSimpleDto(id = id, navn = navn)
 
 private fun Kode.toEnhetKodeverkSimpleDto() = KodeverkSimpleDto(id = navn, navn = beskrivelse)
 
-private fun Collection<Kode>.toKodeverkDto() = map { it.toKodeverkDto() }
+private fun Collection<Kode>.toKodeverkDto(): List<KodeverkDto> = map { it.toKodeverkDto() }
 
 private fun Collection<Kode>.toKodeverkSimpleDto() = map { it.toKodeverkSimpleDto() }
 
