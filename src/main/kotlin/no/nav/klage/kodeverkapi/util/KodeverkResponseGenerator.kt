@@ -40,7 +40,7 @@ fun getKodeverkResponse(): KodeverkResponse {
     )
 }
 
-fun getTemaList() = Tema.entries.toKodeverkDto()
+fun getTemaList() = Tema.entries.toKodeverkDto().sortedBy { it.beskrivelse }
 
 fun getFagsystemList(): List<KodeverkFagsystemDto> {
     return Fagsystem.entries.map {
