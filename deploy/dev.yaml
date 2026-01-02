@@ -1,4 +1,0 @@
-springProfile: dev-gcp
-tenant: trygdeetaten.no
-ingresses:
-  - https://klage-kodeverk-api.intern.dev.nav.no
