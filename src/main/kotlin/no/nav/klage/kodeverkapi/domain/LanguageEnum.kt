@@ -13,12 +13,8 @@ enum class LanguageEnum {
     NN,
 }
 
-class StringToLanguageEnumConverter : Converter<String?, LanguageEnum?> {
+class StringToLanguageEnumConverter : Converter<String, LanguageEnum?> {
     override fun convert(source: String): LanguageEnum {
-        if (source != null) {
-            return LanguageEnum.valueOf(source.uppercase(Locale.getDefault()))
-        } else {
-            throw RuntimeException("error")
-        }
+        return LanguageEnum.valueOf(source.uppercase(Locale.getDefault()))
     }
 }
