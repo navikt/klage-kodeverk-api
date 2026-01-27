@@ -17,6 +17,8 @@ data class KodeverkResponse(
 
 data class KodeverkSimpleDto(val id: String, val navn: String)
 
+data class KodeverkWithUtfasesDto(val id: String, val navn: String, val beskrivelse: String, val utfases: Boolean)
+
 data class KodeverkDto(val id: String, val navn: String, val beskrivelse: String)
 
 data class KodeverkFagsystemDto(val id: String, val navn: String, val beskrivelse: String, val modernized: Boolean)
@@ -47,7 +49,7 @@ data class YtelseKode(
     val lovKildeToRegistreringshjemler: List<LovKildeAndRegistreringshjemler>,
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
-    val innsendingshjemler: List<KodeverkDto>,
+    val innsendingshjemler: List<KodeverkWithUtfasesDto>,
 )
 
 data class KabalytelseKode(
