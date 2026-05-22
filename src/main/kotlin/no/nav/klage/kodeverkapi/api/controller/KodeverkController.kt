@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/kodeverk")
 class KodeverkController {
 
+    //TODO: Sjekk om dette kan fjernes. Sikkert flere også.
     @GetMapping(produces = ["application/json"])
     fun getKodeverk(): KodeverkResponse {
         return getKodeverkResponse()

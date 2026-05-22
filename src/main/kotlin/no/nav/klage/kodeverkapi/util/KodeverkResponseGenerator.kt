@@ -117,13 +117,6 @@ private fun Hjemmel.toKodeverkWithDeprecatedDto(isDeprecated: Boolean = false) =
         deprecated = isDeprecated,
     )
 
-private fun Hjemmel.toKodeverkDto() =
-    KodeverkDto(
-        id = id,
-        navn = lovKilde.beskrivelse + " - " + spesifikasjon,
-        beskrivelse = lovKilde.navn + " - " + spesifikasjon,
-    )
-
 private fun HjemmelAndUtfasesStatus.toKodeverkWithUtfasesDto() =
     KodeverkWithUtfasesDto(
         id = hjemmel.id,
