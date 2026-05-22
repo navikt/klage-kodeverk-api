@@ -68,8 +68,8 @@ class KodeverkController {
     }
 
     @GetMapping("/hjemler", produces = ["application/json"])
-    fun getHjemlerDtos(): List<KodeverkDto> {
-        return getHjemlerAsKodeverkDtos()
+    fun getHjemlerDtos(): List<KodeverkWithDeprecatedDto> {
+        return getHjemlerAsKodeverkWithDeprecatedDto()
     }
 
     @GetMapping("/utfall", produces = ["application/json"])

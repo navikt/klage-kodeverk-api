@@ -23,11 +23,17 @@ val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
     hjemmelComparator.compare(firstNavn, secondNavn)
 }
 
+val kodeverkWithDeprecatedDtoComparator = Comparator<KodeverkWithDeprecatedDto> { o1, o2 ->
+    val firstNavn = o1?.navn
+    val secondNavn = o2?.navn
+    hjemmelComparator.compare(firstNavn, secondNavn)
+}
+
 fun getKodeverkResponse(): KodeverkResponse {
     return KodeverkResponse(
         ytelser = getYtelseMapV1(),
         tema = getTemaList(),
-        hjemler = getHjemlerAsKodeverkDtos(),
+        hjemler = getHjemlerAsKodeverkWithDeprecatedDto(),
         utfall = getUtfallList(),
         enheter = getEnhetList(),
         vedtaksenheter = getVedtaksenhetList(),
@@ -94,7 +100,22 @@ fun getKlageenhetToYtelserList(): List<KlageenhetKode> =
         )
     }
 
-fun getHjemlerAsKodeverkDtos() = Hjemmel.entries.map { it.toKodeverkDto() }.sortedWith(kodeverkDtoComparator)
+fun getHjemlerAsKodeverkWithDeprecatedDto(): List<KodeverkWithDeprecatedDto> {
+    val hjemlerInYtelseMap = ytelseToHjemler.values
+        .flatten()
+        .distinct()
+        .map { it.hjemmel }
+
+    return Hjemmel.entries.map { it.toKodeverkWithDeprecatedDto(!hjemlerInYtelseMap.contains(it)) }.sortedWith(kodeverkWithDeprecatedDtoComparator)
+}
+
+private fun Hjemmel.toKodeverkWithDeprecatedDto(isDeprecated: Boolean = false) =
+    KodeverkWithDeprecatedDto(
+        id = id,
+        navn = lovKilde.beskrivelse + " - " + spesifikasjon,
+        beskrivelse = lovKilde.navn + " - " + spesifikasjon,
+        deprecated = isDeprecated,
+    )
 
 private fun Hjemmel.toKodeverkDto() =
     KodeverkDto(

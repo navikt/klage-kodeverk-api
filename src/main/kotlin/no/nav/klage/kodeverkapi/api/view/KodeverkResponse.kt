@@ -3,7 +3,7 @@ package no.nav.klage.kodeverkapi.api.view
 data class KodeverkResponse(
     val ytelser: List<YtelseKode>,
     val tema: List<KodeverkDto>,
-    val hjemler: List<KodeverkDto>,
+    val hjemler: List<KodeverkWithDeprecatedDto>,
     val utfall: List<KodeverkSimpleDto>,
     val enheter: List<KodeverkSimpleDto>,
     val vedtaksenheter: List<KodeverkSimpleDto>,
@@ -18,6 +18,8 @@ data class KodeverkResponse(
 data class KodeverkSimpleDto(val id: String, val navn: String)
 
 data class KodeverkWithUtfasesDto(val id: String, val navn: String, val beskrivelse: String, val utfases: Boolean)
+
+data class KodeverkWithDeprecatedDto(val id: String, val navn: String, val beskrivelse: String, val deprecated: Boolean)
 
 data class KodeverkDto(val id: String, val navn: String, val beskrivelse: String)
 
