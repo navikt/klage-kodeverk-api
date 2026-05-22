@@ -27,6 +27,8 @@ data class KodeverkFagsystemDto(val id: String, val navn: String, val beskrivels
 
 data class LovKildeAndRegistreringshjemler(val lovkilde: KodeverkDto, val registreringshjemler: List<KodeverkSimpleDto>)
 
+data class LovKildeAndHjemler(val lovkilde: KodeverkDto, val hjemler: List<KodeverkSimpleDto>)
+
 data class LovKildeAndHjemmelnavn(
     val lovkilde: KodeverkDto,
     val hjemmelnavn: String,
@@ -39,6 +41,13 @@ data class LovKildeToRegistreringshjemler(
     val registreringshjemler: List<KodeverkSimpleDto>
 )
 
+data class LovKildeToHjemler(
+    val id: String,
+    val navn: String,
+    val beskrivelse: String,
+    val hjemler: List<KodeverkSimpleDto>
+)
+
 data class KlageenhetKode(
     val id: String,
     val navn: String,
@@ -49,6 +58,7 @@ data class YtelseKode(
     val id: String,
     val navn: String,
     val lovKildeToRegistreringshjemler: List<LovKildeAndRegistreringshjemler>,
+    val lovKildeToHjemler: List<LovKildeAndHjemler>,
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
     val innsendingshjemler: List<KodeverkWithUtfasesDto>,
@@ -57,7 +67,8 @@ data class YtelseKode(
 data class KabalytelseKode(
     val id: String,
     val navn: String,
-    val lovKildeToRegistreringshjemler: List<LovKildeToRegistreringshjemler>
+    val lovKildeToRegistreringshjemler: List<LovKildeToRegistreringshjemler>,
+    val lovKildeToHjemler: List<LovKildeToHjemler>,
 )
 
 data class TypeToUtfallKode(
