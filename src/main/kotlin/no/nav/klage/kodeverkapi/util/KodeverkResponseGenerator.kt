@@ -70,7 +70,11 @@ fun getTypeList() = Type.entries.toKodeverkSimpleDto()
 fun getSimpleYtelseList() = Ytelse.entries.toKodeverkSimpleDto()
 
 fun getSimpleYtelseListForTema(temaId: String): List<KodeverkSimpleDto> {
-    return Ytelse.entries.filter { it.toTema().id == temaId }.toKodeverkSimpleDto()
+    return if (temaId == Tema.FEI.id) {
+        Ytelse.entries.toKodeverkSimpleDto()
+    } else {
+        Ytelse.entries.filter { it.toTema().id == temaId }.toKodeverkSimpleDto()
+    }
 }
 
 fun getSourceList() = Source.entries.toKodeverkSimpleDto()
