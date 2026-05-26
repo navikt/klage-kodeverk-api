@@ -58,7 +58,7 @@ data class YtelseKode(
     val id: String,
     val navn: String,
     val lovKildeToRegistreringshjemler: List<LovKildeAndRegistreringshjemler>,
-    val lovKildeToHjemler: List<LovKildeAndHjemler>,
+    val lovKildeToHjemler: List<LovKildeAndHjemler>?,
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
     val innsendingshjemler: List<KodeverkWithUtfasesDto>,

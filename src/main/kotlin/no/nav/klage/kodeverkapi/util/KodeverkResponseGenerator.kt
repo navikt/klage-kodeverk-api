@@ -335,7 +335,7 @@ fun getYtelseMap(): List<YtelseKode> {
             id = ytelse.id,
             navn = ytelse.navn,
             lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler,
-            lovKildeToHjemler = ytelseToLovKildeToHjemmel[ytelse]!!,
+            lovKildeToHjemler = ytelseToLovKildeToHjemmel[ytelse] ?: emptyList(),
             enheter = ytelseToVedtaksenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
             klageenheter = ytelseToKlageenheter[ytelse]?.map { it.toEnhetKodeverkSimpleDto() } ?: emptyList(),
             innsendingshjemler = ytelseToHjemler[ytelse]?.map { it.toKodeverkWithUtfasesDto() } ?: emptyList()
