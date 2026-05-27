@@ -128,6 +128,11 @@ class KodeverkController {
         return getBrevmottakertypeList()
     }
 
+    @GetMapping("/lovkildetohjemler", produces = ["application/json"])
+    fun getLovKildeToHjemler(): List<LovKildeToHjemler> {
+        return getLovkildeToHjemlerList()
+    }
+
     @GetMapping("/lovkildetoregistreringshjemler", produces = ["application/json"])
     fun getLovKildeToRegistreringshjemler(): List<LovKildeToRegistreringshjemler> {
         return getLovkildeToRegistreringshjemlerList()
