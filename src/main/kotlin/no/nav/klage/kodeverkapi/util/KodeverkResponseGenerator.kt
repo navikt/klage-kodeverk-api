@@ -17,7 +17,7 @@ val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
     hjemmelComparator.compare(firstNavn, secondNavn)
 }
 
-val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
+val kodeverkSimpleWithUtfasesDtoComparator = Comparator<KodeverkSimpleWithUtfasesDto> { o1, o2 ->
     val firstNavn = o1?.navn
     val secondNavn = o2?.navn
     hjemmelComparator.compare(firstNavn, secondNavn)
@@ -110,7 +110,8 @@ fun getHjemlerAsKodeverkWithDeprecatedDto(): List<KodeverkWithDeprecatedDto> {
         .distinct()
         .map { it.hjemmel }
 
-    return Hjemmel.entries.map { it.toKodeverkWithDeprecatedDto(!hjemlerInYtelseMap.contains(it)) }.sortedWith(kodeverkWithDeprecatedDtoComparator)
+    return Hjemmel.entries.map { it.toKodeverkWithDeprecatedDto(!hjemlerInYtelseMap.contains(it)) }
+        .sortedWith(kodeverkWithDeprecatedDtoComparator)
 }
 
 private fun Hjemmel.toKodeverkWithDeprecatedDto(isDeprecated: Boolean = false) =
@@ -155,15 +156,21 @@ private val ytelseToLovKildeToRegistreringshjemmelV2: Map<Ytelse, List<LovKildeA
         }
     }
 
-private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemler>> =
+private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemlerWithUfases>> =
     ytelseToHjemler.mapValues { (_, hjemler) ->
         hjemler.groupBy(
             { hjemmel -> hjemmel.hjemmel.lovKilde },
-            { hjemmel -> KodeverkSimpleDto(hjemmel.hjemmel.id, hjemmel.hjemmel.spesifikasjon) }
+            { hjemmel ->
+                KodeverkSimpleWithUtfasesDto(
+                    id = hjemmel.hjemmel.id,
+                    navn = hjemmel.hjemmel.spesifikasjon,
+                    utfases = hjemmel.utfases
+                )
+            }
         ).map { hjemmel ->
-            LovKildeAndHjemler(
+            LovKildeAndHjemlerWithUfases(
                 hjemmel.key.toKodeverkDto(),
-                hjemmel.value.sortedWith(kodeverkSimpleDtoComparator)
+                hjemmel.value.sortedWith(kodeverkSimpleWithUtfasesDtoComparator)
             )
         }
     }
@@ -306,7 +313,6 @@ private fun getKabalYtelseKodeV2(ytelse: Ytelse) = KabalytelseKode(
     id = ytelse.id,
     navn = ytelse.navn,
     lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler(ytelseToRegistreringshjemlerV2[ytelse]!!.toSet()),
-    lovKildeToHjemler = lovKildeToHjemler(ytelseToHjemler[ytelse]!!.map { it.hjemmel }.toSet()),
 )
 
 private fun ytelseKodeV2(ytelse: Ytelse) = YtelseKode(
