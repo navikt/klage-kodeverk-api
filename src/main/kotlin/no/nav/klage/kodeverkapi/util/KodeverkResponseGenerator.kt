@@ -152,7 +152,7 @@ private val ytelseToLovKildeToRegistreringshjemmelV2: Map<Ytelse, List<LovKildeA
         }
     }
 
-private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemlerWithUfases>> =
+private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemlerWithUtfases>> =
     ytelseToHjemler.mapValues { (_, hjemler) ->
         hjemler.groupBy(
             { hjemmel -> hjemmel.hjemmel.lovKilde },
@@ -164,7 +164,7 @@ private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemlerWithUf
                 )
             }
         ).map { hjemmel ->
-            LovKildeAndHjemlerWithUfases(
+            LovKildeAndHjemlerWithUtfases(
                 hjemmel.key.toKodeverkDto(),
                 hjemmel.value.sortedWith(kodeverkSimpleWithUtfasesDtoComparator)
             )

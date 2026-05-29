@@ -29,7 +29,7 @@ data class KodeverkFagsystemDto(val id: String, val navn: String, val beskrivels
 
 data class LovKildeAndRegistreringshjemler(val lovkilde: KodeverkDto, val registreringshjemler: List<KodeverkSimpleDto>)
 
-data class LovKildeAndHjemlerWithUfases(val lovkilde: KodeverkDto, val hjemler: List<KodeverkSimpleWithUtfasesDto>)
+data class LovKildeAndHjemlerWithUtfases(val lovkilde: KodeverkDto, val hjemler: List<KodeverkSimpleWithUtfasesDto>)
 
 data class LovKildeAndHjemmelnavn(
     val lovkilde: KodeverkDto,
@@ -60,7 +60,7 @@ data class YtelseKode(
     val id: String,
     val navn: String,
     val lovKildeToRegistreringshjemler: List<LovKildeAndRegistreringshjemler>,
-    val lovKildeToHjemler: List<LovKildeAndHjemlerWithUfases>?,
+    val lovKildeToHjemler: List<LovKildeAndHjemlerWithUtfases>?,
     val enheter: List<KodeverkSimpleDto>,
     val klageenheter: List<KodeverkSimpleDto>,
     val innsendingshjemler: List<KodeverkWithUtfasesDto>,
