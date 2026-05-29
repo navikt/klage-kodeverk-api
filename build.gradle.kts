@@ -2,7 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springDocVersion = "3.0.3"
-val kodeverkVersion = "3.2.14"
+val kodeverkVersion = "3.2.17"
+val logstashVersion = "9.0"
 
 plugins {
     val kotlinVersion = "2.3.21"
@@ -26,6 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("io.micrometer:micrometer-registry-prometheus")
+    implementation("net.logstash.logback:logstash-logback-encoder:${logstashVersion}")
 
     //Fix vulnerabilities, while waiting for fix in Spring Boot.
     implementation("org.apache.tomcat.embed:tomcat-embed-core:11.0.22")

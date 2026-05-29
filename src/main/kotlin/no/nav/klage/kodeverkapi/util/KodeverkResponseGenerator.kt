@@ -17,7 +17,7 @@ val kodeverkSimpleDtoComparator = Comparator<KodeverkSimpleDto> { o1, o2 ->
     hjemmelComparator.compare(firstNavn, secondNavn)
 }
 
-val kodeverkDtoComparator = Comparator<KodeverkDto> { o1, o2 ->
+val kodeverkSimpleWithUtfasesDtoComparator = Comparator<KodeverkSimpleWithUtfasesDto> { o1, o2 ->
     val firstNavn = o1?.navn
     val secondNavn = o2?.navn
     hjemmelComparator.compare(firstNavn, secondNavn)
@@ -70,11 +70,7 @@ fun getTypeList() = Type.entries.toKodeverkSimpleDto()
 fun getSimpleYtelseList() = Ytelse.entries.toKodeverkSimpleDto()
 
 fun getSimpleYtelseListForTema(temaId: String): List<KodeverkSimpleDto> {
-    return if (temaId == Tema.FEI.id) {
-        Ytelse.entries.toKodeverkSimpleDto()
-    } else {
-        Ytelse.entries.filter { it.toTema().id == temaId }.toKodeverkSimpleDto()
-    }
+    return Tema.of(temaId).toYtelserCurrentlyInUse().toKodeverkSimpleDto()
 }
 
 fun getSourceList() = Source.entries.toKodeverkSimpleDto()
@@ -110,7 +106,8 @@ fun getHjemlerAsKodeverkWithDeprecatedDto(): List<KodeverkWithDeprecatedDto> {
         .distinct()
         .map { it.hjemmel }
 
-    return Hjemmel.entries.map { it.toKodeverkWithDeprecatedDto(!hjemlerInYtelseMap.contains(it)) }.sortedWith(kodeverkWithDeprecatedDtoComparator)
+    return Hjemmel.entries.map { it.toKodeverkWithDeprecatedDto(!hjemlerInYtelseMap.contains(it)) }
+        .sortedWith(kodeverkWithDeprecatedDtoComparator)
 }
 
 private fun Hjemmel.toKodeverkWithDeprecatedDto(isDeprecated: Boolean = false) =
@@ -155,15 +152,21 @@ private val ytelseToLovKildeToRegistreringshjemmelV2: Map<Ytelse, List<LovKildeA
         }
     }
 
-private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemler>> =
+private val ytelseToLovKildeToHjemmel: Map<Ytelse, List<LovKildeAndHjemlerWithUtfases>> =
     ytelseToHjemler.mapValues { (_, hjemler) ->
         hjemler.groupBy(
             { hjemmel -> hjemmel.hjemmel.lovKilde },
-            { hjemmel -> KodeverkSimpleDto(hjemmel.hjemmel.id, hjemmel.hjemmel.spesifikasjon) }
+            { hjemmel ->
+                KodeverkSimpleWithUtfasesDto(
+                    id = hjemmel.hjemmel.id,
+                    navn = hjemmel.hjemmel.spesifikasjon,
+                    utfases = hjemmel.utfases
+                )
+            }
         ).map { hjemmel ->
-            LovKildeAndHjemler(
+            LovKildeAndHjemlerWithUtfases(
                 hjemmel.key.toKodeverkDto(),
-                hjemmel.value.sortedWith(kodeverkSimpleDtoComparator)
+                hjemmel.value.sortedWith(kodeverkSimpleWithUtfasesDtoComparator)
             )
         }
     }
@@ -306,7 +309,6 @@ private fun getKabalYtelseKodeV2(ytelse: Ytelse) = KabalytelseKode(
     id = ytelse.id,
     navn = ytelse.navn,
     lovKildeToRegistreringshjemler = lovKildeToRegistreringshjemler(ytelseToRegistreringshjemlerV2[ytelse]!!.toSet()),
-    lovKildeToHjemler = lovKildeToHjemler(ytelseToHjemler[ytelse]!!.map { it.hjemmel }.toSet()),
 )
 
 private fun ytelseKodeV2(ytelse: Ytelse) = YtelseKode(
