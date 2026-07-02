@@ -6,8 +6,8 @@ val kodeverkVersion = "3.3.8"
 val logstashVersion = "9.0"
 
 plugins {
-    val kotlinVersion = "2.3.21"
-    id("org.springframework.boot") version "4.0.7"
+    val kotlinVersion = "2.4.0"
+    id("org.springframework.boot") version "4.1.0"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
 }
