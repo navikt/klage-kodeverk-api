@@ -15,21 +15,53 @@ data class KodeverkResponse(
     val brevmottakertyper: List<KodeverkSimpleDto>,
 )
 
-data class KodeverkSimpleDto(val id: String, val navn: String)
+data class KodeverkSimpleDto(
+    val id: String,
+    val navn: String,
+)
 
-data class KodeverkSimpleWithUtfasesDto(val id: String, val navn: String, val utfases: Boolean)
+data class KodeverkSimpleWithUtfasesDto(
+    val id: String,
+    val navn: String,
+    val utfases: Boolean,
+)
 
-data class KodeverkWithUtfasesDto(val id: String, val navn: String, val beskrivelse: String, val utfases: Boolean)
+data class KodeverkWithUtfasesDto(
+    val id: String,
+    val navn: String,
+    val beskrivelse: String,
+    val utfases: Boolean,
+)
 
-data class KodeverkWithDeprecatedDto(val id: String, val navn: String, val beskrivelse: String, val deprecated: Boolean)
+data class KodeverkWithDeprecatedDto(
+    val id: String,
+    val navn: String,
+    val beskrivelse: String,
+    val deprecated: Boolean,
+)
 
-data class KodeverkDto(val id: String, val navn: String, val beskrivelse: String)
+data class KodeverkDto(
+    val id: String,
+    val navn: String,
+    val beskrivelse: String,
+)
 
-data class KodeverkFagsystemDto(val id: String, val navn: String, val beskrivelse: String, val modernized: Boolean)
+data class KodeverkFagsystemDto(
+    val id: String,
+    val navn: String,
+    val beskrivelse: String,
+    val modernized: Boolean,
+)
 
-data class LovKildeAndRegistreringshjemler(val lovkilde: KodeverkDto, val registreringshjemler: List<KodeverkSimpleDto>)
+data class LovKildeAndRegistreringshjemler(
+    val lovkilde: KodeverkDto,
+    val registreringshjemler: List<KodeverkSimpleDto>,
+)
 
-data class LovKildeAndHjemlerWithUtfases(val lovkilde: KodeverkDto, val hjemler: List<KodeverkSimpleWithUtfasesDto>)
+data class LovKildeAndHjemlerWithUtfases(
+    val lovkilde: KodeverkDto,
+    val hjemler: List<KodeverkSimpleWithUtfasesDto>,
+)
 
 data class LovKildeAndHjemmelnavn(
     val lovkilde: KodeverkDto,
@@ -40,14 +72,14 @@ data class LovKildeToRegistreringshjemler(
     val id: String,
     val navn: String,
     val beskrivelse: String,
-    val registreringshjemler: List<KodeverkSimpleDto>
+    val registreringshjemler: List<KodeverkSimpleDto>,
 )
 
 data class LovKildeToHjemler(
     val id: String,
     val navn: String,
     val beskrivelse: String,
-    val hjemler: List<KodeverkSimpleDto>
+    val hjemler: List<KodeverkSimpleDto>,
 )
 
 data class KlageenhetKode(
@@ -83,6 +115,3 @@ data class TypeToSattPaaVentReasons(
     val navn: String,
     val sattPaaVentReasons: List<KodeverkDto>,
 )
-
-
-

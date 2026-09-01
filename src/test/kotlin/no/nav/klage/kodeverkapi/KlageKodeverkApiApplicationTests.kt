@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 class KlageKodeverkApiApplicationTests {
-
     @Test
     fun contextLoads() {
     }
@@ -20,37 +19,40 @@ class KlageKodeverkApiApplicationTests {
     @Test
     fun utfallSort() {
         val output = getTypeToUtfallMap()
-        val wantedResult = listOf(
-            TypeToUtfallKode(
-                id = Type.KLAGE.id,
-                navn = Type.KLAGE.navn,
-                utfall = listOf(
-                    Utfall.TRUKKET.toKodeverkSimpleDto(),
-                    Utfall.OPPHEVET.toKodeverkSimpleDto(),
-                    Utfall.MEDHOLD.toKodeverkSimpleDto(),
-                    Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
-                    Utfall.STADFESTELSE.toKodeverkSimpleDto(),
-                    Utfall.AVVIST.toKodeverkSimpleDto(),
-                    Utfall.UGUNST.toKodeverkSimpleDto(),
-                    Utfall.HENLAGT.toKodeverkSimpleDto(),
-                    Utfall.RETUR.toKodeverkSimpleDto(),
+        val wantedResult =
+            listOf(
+                TypeToUtfallKode(
+                    id = Type.KLAGE.id,
+                    navn = Type.KLAGE.navn,
+                    utfall =
+                        listOf(
+                            Utfall.TRUKKET.toKodeverkSimpleDto(),
+                            Utfall.OPPHEVET.toKodeverkSimpleDto(),
+                            Utfall.MEDHOLD.toKodeverkSimpleDto(),
+                            Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
+                            Utfall.STADFESTELSE.toKodeverkSimpleDto(),
+                            Utfall.AVVIST.toKodeverkSimpleDto(),
+                            Utfall.UGUNST.toKodeverkSimpleDto(),
+                            Utfall.HENLAGT.toKodeverkSimpleDto(),
+                            Utfall.RETUR.toKodeverkSimpleDto(),
+                        ),
                 ),
-            ),
-            TypeToUtfallKode(
-                id = Type.ANKE.id,
-                navn = Type.ANKE.navn,
-                utfall = listOf(
-                    Utfall.TRUKKET.toKodeverkSimpleDto(),
-                    Utfall.OPPHEVET.toKodeverkSimpleDto(),
-                    Utfall.MEDHOLD.toKodeverkSimpleDto(),
-                    Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
-                    Utfall.INNSTILLING_STADFESTELSE.toKodeverkSimpleDto(),
-                    Utfall.INNSTILLING_AVVIST.toKodeverkSimpleDto(),
-                    Utfall.UGUNST.toKodeverkSimpleDto(),
-                    Utfall.HENLAGT.toKodeverkSimpleDto(),
+                TypeToUtfallKode(
+                    id = Type.ANKE.id,
+                    navn = Type.ANKE.navn,
+                    utfall =
+                        listOf(
+                            Utfall.TRUKKET.toKodeverkSimpleDto(),
+                            Utfall.OPPHEVET.toKodeverkSimpleDto(),
+                            Utfall.MEDHOLD.toKodeverkSimpleDto(),
+                            Utfall.DELVIS_MEDHOLD.toKodeverkSimpleDto(),
+                            Utfall.INNSTILLING_STADFESTELSE.toKodeverkSimpleDto(),
+                            Utfall.INNSTILLING_AVVIST.toKodeverkSimpleDto(),
+                            Utfall.UGUNST.toKodeverkSimpleDto(),
+                            Utfall.HENLAGT.toKodeverkSimpleDto(),
+                        ),
                 ),
-            ),
-        )
+            )
         assertThat(output.find { it.id == Type.KLAGE.id }).isEqualTo(wantedResult.find { it.id == Type.KLAGE.id })
         assertThat(output.find { it.id == Type.ANKE.id }).isEqualTo(wantedResult.find { it.id == Type.ANKE.id })
     }
@@ -80,19 +82,20 @@ class KlageKodeverkApiApplicationTests {
         val string10 = "§ 25-1 første ledd"
         val string11 = "§ 25-1 andre ledd"
 
-        val stringList = listOf(
-            string1,
-            string2,
-            string3,
-            string4,
-            string5,
-            string6,
-            string7,
-            string8,
-            string9,
-            string10,
-            string11
-        )
+        val stringList =
+            listOf(
+                string1,
+                string2,
+                string3,
+                string4,
+                string5,
+                string6,
+                string7,
+                string8,
+                string9,
+                string10,
+                string11,
+            )
         val output = stringList.sortedWith(hjemmelComparator)
         assertThat(output).isEqualTo(
             listOf(
@@ -106,8 +109,8 @@ class KlageKodeverkApiApplicationTests {
                 string3,
                 string10,
                 string11,
-                string9
-            )
+                string9,
+            ),
         )
     }
 }
