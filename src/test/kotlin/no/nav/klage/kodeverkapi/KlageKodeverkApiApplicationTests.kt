@@ -38,8 +38,8 @@ class KlageKodeverkApiApplicationTests {
                         ),
                 ),
                 TypeToUtfallKode(
-                    id = Type.ANKE.id,
-                    navn = Type.ANKE.navn,
+                    id = Type.ANKE_FOER_2027.id,
+                    navn = Type.ANKE_FOER_2027.navn,
                     utfall =
                         listOf(
                             Utfall.TRUKKET.toKodeverkSimpleDto(),
@@ -54,7 +54,7 @@ class KlageKodeverkApiApplicationTests {
                 ),
             )
         assertThat(output.find { it.id == Type.KLAGE.id }).isEqualTo(wantedResult.find { it.id == Type.KLAGE.id })
-        assertThat(output.find { it.id == Type.ANKE.id }).isEqualTo(wantedResult.find { it.id == Type.ANKE.id })
+        assertThat(output.find { it.id == Type.ANKE_FOER_2027.id }).isEqualTo(wantedResult.find { it.id == Type.ANKE_FOER_2027.id })
     }
 
     @Test
