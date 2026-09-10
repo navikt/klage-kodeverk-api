@@ -4,7 +4,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 val ktlintVersion = "1.8.0"
 val springDocVersion = "3.1.0"
-val kodeverkVersion = "3.3.28"
+val kodeverkVersion = "3.3.29"
 val logstashVersion = "9.0"
 
 plugins {
