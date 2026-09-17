@@ -3,12 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 val ktlintVersion = "1.8.0"
-val springDocVersion = "3.1.0"
+val springDocVersion = "3.1.1"
 val kodeverkVersion = "3.3.34"
 val logstashVersion = "9.0"
 
 plugins {
-    val kotlinVersion = "2.4.10"
+    val kotlinVersion = "2.4.20"
     id("org.springframework.boot") version "4.1.1"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
