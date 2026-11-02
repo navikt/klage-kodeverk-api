@@ -62,6 +62,7 @@ spec:
         - application: kabin
         - application: mine-klager
         - application: kaptein
+        - application: kant-frontend
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: {{springProfile}}
